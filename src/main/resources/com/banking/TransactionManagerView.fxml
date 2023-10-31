@@ -66,14 +66,26 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="60.0" layoutY="32.0" text="First Name:" />
-                  <Label layoutX="60.0" layoutY="68.0" text="Last Name:" />
-                  <Label layoutX="55.0" layoutY="106.0" text="Date of Birth:" />
+                  <Label layoutX="60.0" layoutY="32.0" text="First Name:">
+                     <effect>
+                        <Blend />
+                     </effect></Label>
+                  <Label layoutX="60.0" layoutY="68.0" text="Last Name:">
+                     <effect>
+                        <Blend />
+                     </effect></Label>
+                  <Label layoutX="55.0" layoutY="106.0" text="Date of Birth:">
+                     <effect>
+                        <Blend />
+                     </effect></Label>
                   <TextField layoutX="146.0" layoutY="28.0" text="Enter first name..." />
                   <TextField layoutX="146.0" layoutY="64.0" text="Enter last name..." />
                   <DatePicker layoutX="145.0" layoutY="102.0" />
                   <TextField layoutX="146.0" layoutY="146.0" text="Enter amount of $..." />
-                  <Label layoutX="64.0" layoutY="147.0" prefHeight="23.0" prefWidth="51.0" text="Amount:" />
+                  <Label layoutX="64.0" layoutY="147.0" prefHeight="23.0" prefWidth="51.0" text="Amount:">
+                     <effect>
+                        <Blend />
+                     </effect></Label>
                   <TextArea layoutX="46.0" layoutY="262.0" prefHeight="286.0" prefWidth="507.0" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="46.000000000000114" />
                   <Button layoutX="45.0" layoutY="217.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="117.0" text="Deposit" />
                   <Button layoutX="233.0" layoutY="215.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0" text="Withdraw" />
