@@ -4,30 +4,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 
 public class TransactionManagerController {
     private AccountDatabase accountDatabase = new AccountDatabase();
 
     @FXML
-    private Label welcomeText;
-    @FXML
-    private RadioButton AccountOpener;
-
+    private TextArea openConsole;
     @FXML
     protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+        openConsole.setText("Welcome to JavaFX Application!");
         System.out.println("Hola ninos!");
     }
     @FXML
     protected void Warning() {
-        welcomeText.setText("Why'd you push it man?");
-    }
-
-    @FXML
-    protected void openAccount() {
-        Account account = new Checking(new Profile("Karthik", "Gogogogo", new Date("05/23/2004")),100);
-        accountDatabase.open(account);
-        System.out.println(account.toString());
+        openConsole.setText("Why'd you push it man?");
     }
 
 }
