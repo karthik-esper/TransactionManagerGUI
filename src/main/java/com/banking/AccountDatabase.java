@@ -20,6 +20,8 @@ public class AccountDatabase {
         this.numAcct = 0;
     }
 
+
+
     /**
      * Iterates through the accounts array to see if the account is already listed.
      * @param account the account to find.
@@ -178,24 +180,23 @@ public class AccountDatabase {
     /**
      * Print the sorted array by account type and profile.
      */
-    public void printSorted(){
+    public String printSorted(){
         if (numAcct > 0) {
             for (int i = 0; i < this.accounts.length; i++) {
                 if (this.accounts[i] != null) {
                     sortByAccountType(this.accounts);
                 }
             }
-
-            System.out.println("\n*Accounts sorted by account type and profile.");
-
+            String toAdd = "\n*Accounts sorted by account type and profile.";
             for (int i = 0; i < this.accounts.length && this.accounts[i] != null; i++) {
-                System.out.println(this.accounts[i].toString());
+                toAdd += this.accounts[i].toString() + "\n";
             }
 
-            System.out.println("*end of list.\n");
+            toAdd += "*end of list.\n";
+            return toAdd;
         }
         else {
-            System.out.println("Account Database is empty!");
+            return "Account Database is empty!";
         }
 
     }
@@ -220,31 +221,32 @@ public class AccountDatabase {
     /**
      * Calculates and displays the monthly fee and interest of the account at given time.
      */
-    public void printFeesAndInterests() {
+    public String printFeesAndInterests() {
         if (numAcct > 0) {
-            System.out.println("\n*list of accounts with fee and monthly interest");
+            String toAdd = "\n*list of accounts with fee and monthly interest";
             for (int i = 0; i < this.accounts.length; i++) {
                 if (this.accounts[i] != null) {
                     sortByAccountType(this.accounts);
                     String toPrint = this.accounts[i].toString();
                     toPrint += "::fee $" + String.format("%.2f",this.accounts[i].monthlyFee());
                     toPrint += "::monthly interest $" + String.format("%.2f",this.accounts[i].monthlyInterest());
-                    System.out.println(toPrint);
+                    toAdd += toPrint + "\n";
                 }
             }
-            System.out.println("*end of list.\n");
+            toAdd += "*end of list.\n";
+            return toAdd;
         }
         else {
-            System.out.println("Account Database is empty!");
+            return "Account Database is empty!";
         }
     }
 
     /**
      * Prints updated balances by calculating interest and fees.
      */
-    public void printUpdatedBalances(){
+    public String printUpdatedBalances(){
         if (numAcct > 0) {
-            System.out.println("\n*list of accounts with fees and interests applied.");
+            String toAdd = "\n*list of accounts with fees and interests applied.";
             for (int i = 0; i < this.accounts.length; i++) {
                 if (this.accounts[i] != null) {
                     sortByAccountType(this.accounts);
@@ -255,13 +257,14 @@ public class AccountDatabase {
                     if (this.accounts[i] instanceof MoneyMarket) {
                         ((MoneyMarket) this.accounts[i]).clearWithdrawal();
                     }
-                    System.out.println(this.accounts[i].toString());
+                    toAdd += this.accounts[i].toString() + "\n";
                 }
             }
-            System.out.println("*end of list.\n");
+            toAdd += "*end of list.\n";
+            return toAdd;
         }
         else {
-            System.out.println("Account Database is empty!");
+            return "Account Database is empty!";
         }
     }
 }

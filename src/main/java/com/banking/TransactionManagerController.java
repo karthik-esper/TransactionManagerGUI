@@ -11,10 +11,21 @@ public class TransactionManagerController {
 
     @FXML
     private TextArea openConsole;
+
+    @FXML
+    private TextArea accountDatabaseOutput;
+
+
     @FXML
     protected void onHelloButtonClick() {
         openConsole.setText("Welcome to JavaFX Application!");
         System.out.println("Hola ninos!");
+    }
+
+    @FXML
+    protected void printAccounts() {
+        //accountDatabaseOutput.setText(accountDatabase.printSorted());
+        accountDatabaseOutput.setText("this kinda works?");
     }
     @FXML
     protected void Warning() {
