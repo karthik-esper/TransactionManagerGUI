@@ -12,12 +12,12 @@
           <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="44.0" layoutY="-23.0" prefHeight="138.0" prefWidth="513.0" text="Welcome to Skillman-Edison Bank!" textFill="#fcfcfc" wrapText="true">
+                  <Label layoutX="44.0" layoutY="18.0" prefHeight="54.0" prefWidth="514.0" text="Welcome to Skillman-Edison Bank!" textFill="#fcfcfc" wrapText="true">
                      <font>
                         <Font size="32.0" />
                      </font>
                   </Label>
-                   <Label layoutX="48.0" layoutY="36.0" prefHeight="160.0" prefWidth="519.0" text="Here your dreams will come true under our incredible bankers. Keep your balance high and your GPA higher!" wrapText="true">
+                   <Label layoutX="48.0" layoutY="70.0" prefHeight="91.0" prefWidth="519.0" text="Here your dreams will come true under our incredible bankers. Keep your balance high and your GPA higher!" wrapText="true">
                        <font>
                            <Font size="20.0" />
                        </font></Label>
