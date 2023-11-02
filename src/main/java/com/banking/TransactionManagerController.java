@@ -49,19 +49,19 @@ public class TransactionManagerController {
     @FXML
     protected void printAccounts() {
         accountDatabaseOutput.clear();
-        accountDatabaseOutput.setText("this kinda works?");
+        accountDatabaseOutput.setText(accountDatabase.printSorted());
     }
 
     @FXML
     protected void printFeesAndInterest() {
         accountDatabaseOutput.clear();
-        accountDatabaseOutput.setText("this button might work too!");
+        accountDatabaseOutput.setText(accountDatabase.printFeesAndInterests());
     }
 
     @FXML
     protected void applyFeesAndInterest() {
         accountDatabaseOutput.clear();
-        accountDatabaseOutput.setText("other button is maybe working!");
+        accountDatabaseOutput.setText(accountDatabase.printUpdatedBalances());
     }
 
     @FXML
