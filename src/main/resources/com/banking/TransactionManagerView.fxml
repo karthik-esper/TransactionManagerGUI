@@ -125,11 +125,11 @@
           <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TextArea fx:id="accountDatabaseOutput" layoutX="201.0" layoutY="45.0" prefHeight="496.0" prefWidth="369.0" promptText="Output will be shown here..." />
-                  <Button layoutX="36.0" layoutY="72.0" mnemonicParsing="false" onAction="#printAccounts" prefHeight="61.0" prefWidth="132.0" text="Print Accounts sorted by name and date" wrapText="true" />
-                  <Button layoutX="37.0" layoutY="203.0" mnemonicParsing="false" onAction="#printFeesAndInterest" prefHeight="48.0" prefWidth="131.0" text="Print Accounts with Interest and Fees" wrapText="true" />
-                  <Button layoutX="36.0" layoutY="342.0" mnemonicParsing="false" onAction="#applyFeesAndInterest" prefHeight="42.0" prefWidth="130.0" text="Apply and Print Interest and Fees" wrapText="true" />
-                   <Button layoutX="36.0" layoutY="478.0" mnemonicParsing="false" onAction="#clearOutput" prefHeight="42.0" prefWidth="130.0" text="Clear Output Box" wrapText="true" />
+                  <TextArea fx:id="accountDatabaseOutput" layoutX="35.0" layoutY="19.0" prefHeight="444.0" prefWidth="536.0" promptText="Output will be shown here..." />
+                  <Button layoutX="10.0" layoutY="480.0" mnemonicParsing="false" onAction="#printAccounts" prefHeight="50.0" prefWidth="125.0" text="Print Accounts sorted by name and date" wrapText="true" />
+                  <Button layoutX="160.0" layoutY="480.0" mnemonicParsing="false" onAction="#printFeesAndInterest" prefHeight="50.0" prefWidth="125.0" text="Print Accounts with Interest and Fees" wrapText="true" />
+                  <Button layoutX="310.0" layoutY="480.0" mnemonicParsing="false" onAction="#applyFeesAndInterest" prefHeight="50.0" prefWidth="125.0" text="Apply and Print Interest and Fees" wrapText="true" />
+                   <Button layoutX="460.0" layoutY="480.0" mnemonicParsing="false" onAction="#clearOutput" prefHeight="50.0" prefWidth="125.0" text="Clear Output Box" wrapText="true" />
                </children></AnchorPane>
           </content>
       </Tab>

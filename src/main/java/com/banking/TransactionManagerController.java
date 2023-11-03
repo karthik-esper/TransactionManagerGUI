@@ -208,6 +208,10 @@ public class TransactionManagerController {
     }
 
     private Account createAccount(Profile holder, double deposit) {
+        if (getInitialDeposit() < 0) {
+            openConsole.setText("No balance entered, please enter an initial deposit.");
+            return null;
+        }
         if (checkingButton.isSelected() || collegeCheckingButton.isSelected()) {
             Account newAccount = createChecking(holder, deposit);
             return newAccount;
@@ -220,20 +224,24 @@ public class TransactionManagerController {
 
     private Account createChecking(Profile holder, double deposit){
         if (checkingButton.isSelected()) {
+            openConsole.clear();
             openConsole.setText("Checking account created");
             return new Checking(holder, deposit);
         }
         else {
             if (CampusType.getSelectedToggle() != null) {
                 if (campusNB.isSelected()) {
+                    openConsole.clear();
                     openConsole.setText("College Checking account created");
                     return new CollegeChecking(holder, deposit, Campus.NEW_BRUNSWICK);
                 }
                 else if (campusNW.isSelected()) {
+                    openConsole.clear();
                     openConsole.setText("College Checking account created");
                     return new CollegeChecking(holder, deposit, Campus.NEWARK);
                 }
                 else if (campusCA.isSelected()) {
+                    openConsole.clear();
                     openConsole.setText("College Checking account created");
                     return new CollegeChecking(holder, deposit, Campus.CAMDEN);
                 }
@@ -246,14 +254,26 @@ public class TransactionManagerController {
     private Account createSavings(Profile holder, double deposit) {
         if (savingsButton.isSelected()) {
             if (loyaltyButton.isSelected()) {
+                openConsole.clear();
+                openConsole.setText("Savings account created");
                 return new Savings(holder, deposit, true);
             }
             else {
-               return new Savings(holder, deposit, false);
+                openConsole.clear();
+                openConsole.setText("Savings account created");
+                return new Savings(holder, deposit, false);
             }
         }
         else {
-            return new MoneyMarket(holder, deposit);
+            if (getInitialDeposit() >= 2000) {
+                openConsole.clear();
+                openConsole.setText("Money Market account created");
+                return new MoneyMarket(holder, deposit);
+            }
+            else {
+                openConsole.setText("Not enough money for initial deposit!");
+                return null;
+            }
         }
 
     }
@@ -263,8 +283,15 @@ public class TransactionManagerController {
 
     @FXML
     protected int getInitialDeposit() {
-        int initDeposit = Integer.parseInt(initialDeposit.getText());
-        return initDeposit;
+        if (!initialDeposit.getText().isEmpty()) {
+            int initDeposit = Integer.parseInt(initialDeposit.getText());
+            return initDeposit;
+        }
+        else {
+            return -1;
+        }
+
+
     }
     @FXML
     protected String getWithdrawFirstName() {
