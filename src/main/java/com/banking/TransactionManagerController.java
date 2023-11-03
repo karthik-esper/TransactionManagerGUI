@@ -82,21 +82,36 @@ public class TransactionManagerController {
     protected void Warning() {
         openConsole.setText("Why'd you push it man?");
     }
+    @FXML
+    protected void campusSelector() {
+        if(collegeCheckingButton.isSelected()) {
+            campusCA.setDisable(false);
+            campusNW.setDisable(false);
+            campusNB.setDisable(false);
+        }
+        else {
+            campusCA.setDisable(true);
+            campusCA.setSelected(false);
+            campusNB.setDisable(true);
+            campusNB.setSelected(false);
+            campusNW.setDisable(true);
+            campusNW.setSelected(false);
+        }
+    }
 
     @FXML
     protected void getOpenFullName() {
-        System.out.print(openFirstName.getText());
-        System.out.print(" " + openLastName.getText());
+        System.out.print(openFirstName.getText() + " " + openLastName.getText());
     }
     @FXML
     protected void getOpenDate() {
         if (openDOB.getValue() != null) {
             String date = openDOB.getValue().toString();
-            String year = date.substring(0,3);
-            String month = date.substring(5,6);
+            String year = date.substring(0,4);
+            String month = date.substring(5,7);
             String day = date.substring(8);
-            System.out.println(date);
-            System.out.println(year + "," + month + "," + day);
+            Date openDate = new Date(month + "/" + day + "/" + year);
+            System.out.println(openDate);
         }
     }
 
