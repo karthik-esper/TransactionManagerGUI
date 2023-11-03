@@ -154,7 +154,6 @@ public class TransactionManagerController {
         openLastName.clear();
         openDOB.getEditor().clear();
         initialDeposit.clear();
-
     }
 
     protected void openClearClick() {
