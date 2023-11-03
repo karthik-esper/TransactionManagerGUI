@@ -22,6 +22,8 @@ public class TransactionManagerController {
     @FXML
     private RadioButton campusCA;
     @FXML
+    private TextField initialDeposit;
+    @FXML
     private TextField openFirstName;
     @FXML
     private TextField openLastName;
@@ -96,6 +98,32 @@ public class TransactionManagerController {
             System.out.println(date);
             System.out.println(year + "," + month + "," + day);
         }
+    }
+
+    @FXML
+    protected void onOpenClick() {
+        openFirstName.clear();
+        openLastName.clear();
+        openDOB.getEditor().clear();
+        initialDeposit.clear();
+
+    }
+
+    @FXML
+    protected void onCloseClick() {
+        openFirstName.clear();
+        openLastName.clear();
+        openDOB.getEditor().clear();
+        initialDeposit.clear();
+
+    }
+
+    protected void openClearClick() {
+        openFirstName.clear();
+        openLastName.clear();
+        openDOB.getEditor().clear();
+        initialDeposit.clear();
+
     }
 
 
