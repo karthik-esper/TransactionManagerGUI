@@ -102,19 +102,25 @@ public class TransactionManagerController {
     }
 
     @FXML
-    protected void getOpenFullName() {
-        System.out.print(openFirstName.getText() + " " + openLastName.getText());
+    protected String getOpenFirstName() {
+        return openFirstName.getText();
+    }
+
+    @FXML
+    protected String getOpenSecondName() {
+        return openLastName.getText();
     }
     @FXML
-    protected void getOpenDate() {
+    protected Date getOpenDate() {
         if (openDOB.getValue() != null) {
             String date = openDOB.getValue().toString();
             String year = date.substring(0,4);
             String month = date.substring(5,7);
             String day = date.substring(8);
             Date openDate = new Date(month + "/" + day + "/" + year);
-            System.out.println(openDate);
+            return openDate;
         }
+        return null;
     }
     @FXML
     protected void getInitialDeposit() {
@@ -132,15 +138,16 @@ public class TransactionManagerController {
     }
 
     @FXML
-    protected void getWithdrawDOB() {
+    protected Date getWithdrawDOB() {
         if (withdrawDOB.getValue() != null) {
             String date = withdrawDOB.getValue().toString();
             String year = date.substring(0,4);
             String month = date.substring(5,7);
             String day = date.substring(8);
             Date withdrawDate = new Date(month + "/" + day + "/" + year);
-            System.out.println(withdrawDate);
+            return withdrawDate;
         }
+        return null;
     }
 
     @FXML
