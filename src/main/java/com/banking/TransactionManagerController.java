@@ -196,6 +196,12 @@ public class TransactionManagerController {
         return true;
     }
 
+//    private Account createAccount(Profile holder, double deposit){
+//        if (checkingButton.isSelected() || collegeCheckingButton.isSelected()) {
+//
+//        }
+//    }
+
 
     @FXML
     protected void getInitialDeposit() {
