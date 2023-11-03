@@ -108,7 +108,7 @@
                   <TextField fx:id="withdrawFirstName" layoutX="146.0" layoutY="28.0" promptText="Enter first name..." />
                   <TextField fx:id="withdrawLastName" layoutX="146.0" layoutY="64.0" promptText="Enter last name..." />
                   <DatePicker fx:id="withdrawDOB" layoutX="145.0" layoutY="102.0" onMouseExited="#getWithdrawDOB" />
-                  <TextField fx:id="changeAmount" layoutX="146.0" layoutY="146.0" promptText="Enter amount of $..." />
+                  <TextField fx:id="changeAmount" layoutX="146.0" layoutY="146.0" onMouseExited="#getAmount" promptText="Enter amount of $..." />
                   <Label layoutX="64.0" layoutY="147.0" prefHeight="23.0" prefWidth="51.0" text="Amount:">
                      <effect>
                         <Blend />
