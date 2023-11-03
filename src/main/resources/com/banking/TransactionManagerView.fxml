@@ -49,8 +49,8 @@
                         <ToggleGroup fx:id="AccountType" />
                      </toggleGroup></RadioButton>
                   <RadioButton fx:id="collegeCheckingButton" layoutX="243.0" layoutY="151.0" mnemonicParsing="false" onAction="#campusSelector" text="College Checking" toggleGroup="$AccountType" />
-                  <RadioButton fx:id="savingsButton" layoutX="136.0" layoutY="194.0" mnemonicParsing="false" onAction="#campusSelector" text="Savings" toggleGroup="$AccountType" />
-                  <RadioButton fx:id="moneyMarket" layoutX="249.0" layoutY="194.0" mnemonicParsing="false" onAction="#campusSelector" text="Money Market" toggleGroup="$AccountType" />
+                  <RadioButton fx:id="savingsButton" layoutX="279.0" layoutY="194.0" mnemonicParsing="false" onAction="#campusSelector" text="Savings" toggleGroup="$AccountType" />
+                  <RadioButton fx:id="moneyMarket" layoutX="127.0" layoutY="194.0" mnemonicParsing="false" onAction="#campusSelector" text="Money Market" toggleGroup="$AccountType" />
                   <Button layoutX="42.0" layoutY="246.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="79.0" text="Open " />
                   <TextField fx:id="openFirstName" layoutX="124.0" layoutY="26.0" onMouseExited="#getOpenFirstName" promptText="Enter first name..." />
                   <TextField fx:id="openLastName" layoutX="124.0" layoutY="64.0" onMouseExited="#getOpenLastName" promptText="Enter last name..." />
@@ -80,12 +80,13 @@
                      </effect>
                   </Label>
                   <TextField fx:id="initialDeposit" layoutX="409.0" layoutY="247.0" promptText="Enter amount of $..." />
-                  <RadioButton fx:id="campusNB" disable="true" layoutX="385.0" layoutY="128.0" mnemonicParsing="false" text="New Brunswick">
+                  <RadioButton fx:id="campusNB" disable="true" layoutX="385.0" layoutY="112.0" mnemonicParsing="false" text="New Brunswick">
                      <toggleGroup>
                         <ToggleGroup fx:id="CampusType" />
                      </toggleGroup></RadioButton>
-                  <RadioButton fx:id="campusNW" disable="true" layoutX="386.0" layoutY="151.0" mnemonicParsing="false" text="Newark" toggleGroup="$CampusType" />
-                  <RadioButton fx:id="campusCA" disable="true" layoutX="387.0" layoutY="177.0" mnemonicParsing="false" text="Camden" toggleGroup="$CampusType" />
+                  <RadioButton fx:id="campusNW" disable="true" layoutX="386.0" layoutY="135.0" mnemonicParsing="false" text="Newark" toggleGroup="$CampusType" />
+                  <RadioButton fx:id="campusCA" disable="true" layoutX="387.0" layoutY="157.0" mnemonicParsing="false" text="Camden" toggleGroup="$CampusType" />
+                  <RadioButton layoutX="386.0" layoutY="193.0" mnemonicParsing="false" text="IsLoyal" />
                </children></AnchorPane>
       </content>
     </Tab>
