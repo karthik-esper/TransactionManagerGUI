@@ -22,6 +22,8 @@ public class TransactionManagerController {
     @FXML
     private RadioButton campusCA;
     @FXML
+    private RadioButton loyaltyButton;
+    @FXML
     private TextField openFirstName;
     @FXML
     private TextField openLastName;
@@ -144,13 +146,22 @@ public class TransactionManagerController {
         }
         Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
         if (AccountType.getSelectedToggle() != null) {
-//            return createAccount();
+            Account newAcc = createAccount(holder, getInitialDeposit());
+            if (newAcc != null) {
+                accountDatabase.open(newAcc);
+            }
+            else {
+                return;
+            }
+        }
+        else {
+            openConsole.setText("Button not selected for account type, please do so.");
+            return;
         }
         openFirstName.clear();
         openLastName.clear();
         openDOB.getEditor().clear();
         initialDeposit.clear();
-
     }
 
     protected void onCloseClick() {
@@ -196,26 +207,73 @@ public class TransactionManagerController {
         return true;
     }
 
-//    private Account createAccount(Profile holder, double deposit){
-//        if (checkingButton.isSelected() || collegeCheckingButton.isSelected()) {
-//
-//        }
-//    }
+    private Account createAccount(Profile holder, double deposit) {
+        if (checkingButton.isSelected() || collegeCheckingButton.isSelected()) {
+            Account newAccount = createChecking(holder, deposit);
+            return newAccount;
+        }
+        else {
+            Account newAccount = createSavings(holder, deposit);
+            return newAccount;
+        }
+    }
+
+    private Account createChecking(Profile holder, double deposit){
+        if (checkingButton.isSelected()) {
+            openConsole.setText("Checking account created");
+            return new Checking(holder, deposit);
+        }
+        else {
+            if (CampusType.getSelectedToggle() != null) {
+                if (campusNB.isSelected()) {
+                    openConsole.setText("College Checking account created");
+                    return new CollegeChecking(holder, deposit, Campus.NEW_BRUNSWICK);
+                }
+                else if (campusNW.isSelected()) {
+                    openConsole.setText("College Checking account created");
+                    return new CollegeChecking(holder, deposit, Campus.NEWARK);
+                }
+                else if (campusCA.isSelected()) {
+                    openConsole.setText("College Checking account created");
+                    return new CollegeChecking(holder, deposit, Campus.CAMDEN);
+                }
+            }
+            openConsole.setText("Account could not be created, campus not selected");
+            return null;
+        }
+    }
+
+    private Account createSavings(Profile holder, double deposit) {
+        if (savingsButton.isSelected()) {
+            if (loyaltyButton.isSelected()) {
+                return new Savings(holder, deposit, true);
+            }
+            else {
+               return new Savings(holder, deposit, false);
+            }
+        }
+        else {
+            return new MoneyMarket(holder, deposit);
+        }
+
+    }
+
+
 
 
     @FXML
-    protected void getInitialDeposit() {
+    protected int getInitialDeposit() {
         int initDeposit = Integer.parseInt(initialDeposit.getText());
-        System.out.println(initDeposit);
+        return initDeposit;
     }
     @FXML
-    protected void getWithdrawFirstName() {
-        System.out.print(withdrawFirstName.getText());
+    protected String getWithdrawFirstName() {
+        return withdrawFirstName.getText();
     }
 
     @FXML
-    protected void getWithdrawLastName() {
-        System.out.println(withdrawLastName.getText());
+    protected String getWithdrawLastName() {
+        return withdrawLastName.getText();
     }
 
     @FXML
