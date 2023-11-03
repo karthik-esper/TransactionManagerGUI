@@ -129,25 +129,29 @@ public class TransactionManagerController {
         }
         return null;
     }
-//    @FXML
-//    protected void onOpenClick() {
-//        if (getOpenFirstName().equals("") || getOpenLastName().equals("")) {
-//            openConsole.setText("Invalid name, either first name or last name is empty");
-//            return;
-//        }
-//        if (!validDOB(getOpenDate().toString())) {
-//            return;
-//        }
-//        Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
-//        if (AccountType.getSelectedToggle() != null) {
-//
-//        }
-//        openFirstName.clear();
-//        openLastName.clear();
-//        openDOB.getEditor().clear();
-//        initialDeposit.clear();
-//
-//    }
+    @FXML
+    protected void onOpenClick() {
+        if (getOpenFirstName().equals("") || getOpenLastName().equals("")) {
+            openConsole.setText("Invalid name, either first name or last name is empty");
+            return;
+        }
+        if (getOpenDate() == null) {
+            openConsole.setText("The date entered is not valid!");
+            return;
+        }
+        if (!validAge(getOpenDate().toString())) {
+            return;
+        }
+        Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
+        if (AccountType.getSelectedToggle() != null) {
+//            return createAccount();
+        }
+        openFirstName.clear();
+        openLastName.clear();
+        openDOB.getEditor().clear();
+        initialDeposit.clear();
+
+    }
 
     protected void onCloseClick() {
         openFirstName.clear();
@@ -164,18 +168,19 @@ public class TransactionManagerController {
 
     }
 
-    private boolean validDOB(String date) {
-        if (getOpenDate().equals("")) {
-            openConsole.setText("Date of birth not entered!");
+    private boolean validAge(String date) {
+        Date Test = new Date(date);
+        Date tooEarly = new Date ("11/6/2007");
+        Date tooLate = new Date ("11/6/1999");
+        if (tooEarly.compareTo(Test) == -1) {
+            openConsole.setText("DOB invalid: "  + date + " under 16.");
             return false;
         }
-        if (!validAge(date)) {
-            return false;
-        }
+
         return true;
     }
 
-    private boolean validAge(String date) {
+    private boolean validAge(String date, String overload) {
         Date Test = new Date(date);
         Date tooEarly = new Date ("11/6/2007");
         Date tooLate = new Date ("11/6/1999");
@@ -189,6 +194,7 @@ public class TransactionManagerController {
         }
         return true;
     }
+
 
     @FXML
     protected void getInitialDeposit() {
