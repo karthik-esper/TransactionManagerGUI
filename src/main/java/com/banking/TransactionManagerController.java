@@ -22,8 +22,6 @@ public class TransactionManagerController {
     @FXML
     private RadioButton campusCA;
     @FXML
-    private TextField initialDeposit;
-    @FXML
     private TextField openFirstName;
     @FXML
     private TextField openLastName;
@@ -41,12 +39,16 @@ public class TransactionManagerController {
     private TextArea withdrawConsole;
     @FXML
     private TextArea accountDatabaseOutput;
-
     @FXML
     private TextField firstName;
-
     @FXML
     private TextField lastName;
+
+    @FXML
+    private TextField initialDeposit;
+
+    @FXML
+    private TextField changeAmount;
 
     @FXML
     protected void onHelloButtonClick() {
@@ -114,34 +116,38 @@ public class TransactionManagerController {
             System.out.println(openDate);
         }
     }
+    @FXML
+    protected void getInitialDeposit() {
+        int initDeposit = Integer.parseInt(initialDeposit.getText());
+        System.out.println(initDeposit);
+    }
+    @FXML
+    protected void getWithdrawFirstName() {
+        System.out.print(withdrawFirstName.getText());
+    }
 
     @FXML
-    protected void onOpenClick() {
-        openFirstName.clear();
-        openLastName.clear();
-        openDOB.getEditor().clear();
-        initialDeposit.clear();
-
+    protected void getWithdrawLastName() {
+        System.out.println(withdrawLastName.getText());
     }
 
     @FXML
-    protected void onCloseClick() {
-        openFirstName.clear();
-        openLastName.clear();
-        openDOB.getEditor().clear();
-        initialDeposit.clear();
-
+    protected void getWithdrawDOB() {
+        if (withdrawDOB.getValue() != null) {
+            String date = withdrawDOB.getValue().toString();
+            String year = date.substring(0,4);
+            String month = date.substring(5,7);
+            String day = date.substring(8);
+            Date withdrawDate = new Date(month + "/" + day + "/" + year);
+            System.out.println(withdrawDate);
+        }
     }
 
-    protected void openClearClick() {
-        openFirstName.clear();
-        openLastName.clear();
-        openDOB.getEditor().clear();
-        initialDeposit.clear();
-
+    @FXML
+    protected void getAmount() {
+        int amount = Integer.parseInt(changeAmount.getText());
+        System.out.println(amount);
     }
-
-
 
 
 
