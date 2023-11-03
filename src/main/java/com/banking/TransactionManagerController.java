@@ -39,12 +39,13 @@ public class TransactionManagerController {
     private TextArea withdrawConsole;
     @FXML
     private TextArea accountDatabaseOutput;
-
     @FXML
     private TextField firstName;
-
     @FXML
     private TextField lastName;
+
+    @FXML
+    private TextField initialDeposit;
 
     @FXML
     protected void onHelloButtonClick() {
@@ -111,6 +112,11 @@ public class TransactionManagerController {
             Date openDate = new Date(month + "/" + day + "/" + year);
             System.out.println(openDate);
         }
+    }
+    @FXML
+    protected void getInitialDeposit() {
+        int initDeposit = Integer.parseInt(initialDeposit.getText());
+        System.out.println(initDeposit);
     }
 
 
