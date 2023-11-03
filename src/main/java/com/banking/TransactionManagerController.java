@@ -51,6 +51,13 @@ public class TransactionManagerController {
     private TextField changeAmount;
 
     @FXML
+    private ToggleGroup AccountType;
+
+    @FXML
+    private ToggleGroup CampusType;
+
+
+    @FXML
     protected void onHelloButtonClick() {
         openConsole.setText("Welcome to JavaFX Application!");
         System.out.println("Hola ninos!");
@@ -107,7 +114,7 @@ public class TransactionManagerController {
     }
 
     @FXML
-    protected String getOpenSecondName() {
+    protected String getOpenLastName() {
         return openLastName.getText();
     }
     @FXML
@@ -122,6 +129,52 @@ public class TransactionManagerController {
         }
         return null;
     }
+    @FXML
+    protected void onOpenClick() {
+        if (getOpenFirstName().equals("") || getOpenLastName().equals("")) {
+            openConsole.setText("Invalid name, either first name or last name is empty");
+            return;
+        }
+        if (!validDOB(getOpenDate().toString())) {
+            return;
+        }
+        Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
+        if (AccountType.getSelectedToggle() != null) {
+
+        }
+        openFirstName.clear();
+        openLastName.clear();
+        openDOB.getEditor().clear();
+        initialDeposit.clear();
+
+    }
+
+    private boolean validDOB(String date) {
+        if (getOpenDate().equals("")) {
+            openConsole.setText("Date of birth not entered!");
+            return false;
+        }
+        if (!validAge(date)) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validAge(String date) {
+        Date Test = new Date(date);
+        Date tooEarly = new Date ("11/6/2007");
+        Date tooLate = new Date ("11/6/1999");
+        if (tooEarly.compareTo(Test) == -1) {
+            openConsole.setText("DOB invalid: "  + date + " under 16.");
+            return false;
+        }
+        else if (tooLate.compareTo(Test) == 1) {
+            openConsole.setText("DOB invalid: "  + date + " over 24.");
+            return false;
+        }
+        return true;
+    }
+
     @FXML
     protected void getInitialDeposit() {
         int initDeposit = Integer.parseInt(initialDeposit.getText());
