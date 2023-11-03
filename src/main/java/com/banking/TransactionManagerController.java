@@ -129,25 +129,25 @@ public class TransactionManagerController {
         }
         return null;
     }
-    @FXML
-    protected void onOpenClick() {
-        if (getOpenFirstName().equals("") || getOpenLastName().equals("")) {
-            openConsole.setText("Invalid name, either first name or last name is empty");
-            return;
-        }
-        if (!validDOB(getOpenDate().toString())) {
-            return;
-        }
-        Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
-        if (AccountType.getSelectedToggle() != null) {
-
-        }
-        openFirstName.clear();
-        openLastName.clear();
-        openDOB.getEditor().clear();
-        initialDeposit.clear();
-
-    }
+//    @FXML
+//    protected void onOpenClick() {
+//        if (getOpenFirstName().equals("") || getOpenLastName().equals("")) {
+//            openConsole.setText("Invalid name, either first name or last name is empty");
+//            return;
+//        }
+//        if (!validDOB(getOpenDate().toString())) {
+//            return;
+//        }
+//        Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
+//        if (AccountType.getSelectedToggle() != null) {
+//
+//        }
+//        openFirstName.clear();
+//        openLastName.clear();
+//        openDOB.getEditor().clear();
+//        initialDeposit.clear();
+//
+//    }
 
     protected void onCloseClick() {
         openFirstName.clear();
