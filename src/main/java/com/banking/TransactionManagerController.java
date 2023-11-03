@@ -41,6 +41,12 @@ public class TransactionManagerController {
     private TextArea accountDatabaseOutput;
 
     @FXML
+    private TextField firstName;
+
+    @FXML
+    private TextField lastName;
+
+    @FXML
     protected void onHelloButtonClick() {
         openConsole.setText("Welcome to JavaFX Application!");
         System.out.println("Hola ninos!");
@@ -74,5 +80,26 @@ public class TransactionManagerController {
     protected void Warning() {
         openConsole.setText("Why'd you push it man?");
     }
+
+    @FXML
+    protected void getOpenFullName() {
+        System.out.print(openFirstName.getText());
+        System.out.print(" " + openLastName.getText());
+    }
+    @FXML
+    protected void getOpenDate() {
+        if (openDOB.getValue() != null) {
+            String date = openDOB.getValue().toString();
+            String year = date.substring(0,3);
+            String month = date.substring(5,6);
+            String day = date.substring(8);
+            System.out.println(date);
+            System.out.println(year + "," + month + "," + day);
+        }
+    }
+
+
+
+
 
 }

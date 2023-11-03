@@ -52,8 +52,8 @@
                   <RadioButton fx:id="savingsButton" layoutX="136.0" layoutY="194.0" mnemonicParsing="false" text="Savings" toggleGroup="$AccountType" />
                   <RadioButton fx:id="moneyMarket" layoutX="249.0" layoutY="194.0" mnemonicParsing="false" text="Money Market" toggleGroup="$AccountType" />
                   <Button layoutX="42.0" layoutY="246.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="79.0" text="Open " />
-                  <TextField fx:id="openFirstName" layoutX="124.0" layoutY="26.0" promptText="Enter first name..." />
-                  <TextField fx:id="openLastName" layoutX="124.0" layoutY="64.0" promptText="Enter last name..." />
+                  <TextField fx:id="openFirstName" layoutX="124.0" layoutY="26.0" onMouseExited="#getOpenFullName" promptText="Enter first name..." />
+                  <TextField fx:id="openLastName" layoutX="124.0" layoutY="64.0" onMouseExited="#getOpenFullName" promptText="Enter last name..." />
                   <Label layoutX="56.0" layoutY="30.0" prefHeight="18.0" prefWidth="66.0" text="First Name:">
                      <effect>
                         <Blend />
@@ -62,7 +62,7 @@
                      <effect>
                         <Blend />
                      </effect></Label>
-                  <DatePicker fx:id="openDOB" layoutX="124.0" layoutY="102.0" />
+                  <DatePicker fx:id="openDOB" layoutX="124.0" layoutY="102.0" onMouseExited="#getOpenDate" />
                   <Label layoutX="45.0" layoutY="106.0" text="Date of Birth:">
                      <effect>
                         <Blend />
