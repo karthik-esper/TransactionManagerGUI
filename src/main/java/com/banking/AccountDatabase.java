@@ -187,7 +187,7 @@ public class AccountDatabase {
                     sortByAccountType(this.accounts);
                 }
             }
-            String toAdd = "\n*Accounts sorted by account type and profile.";
+            String toAdd = "\n*Accounts sorted by account type and profile.\n";
             for (int i = 0; i < this.accounts.length && this.accounts[i] != null; i++) {
                 toAdd += this.accounts[i].toString() + "\n";
             }
@@ -223,7 +223,7 @@ public class AccountDatabase {
      */
     public String printFeesAndInterests() {
         if (numAcct > 0) {
-            String toAdd = "\n*list of accounts with fee and monthly interest";
+            String toAdd = "\n*list of accounts with fee and monthly interest\n";
             for (int i = 0; i < this.accounts.length; i++) {
                 if (this.accounts[i] != null) {
                     sortByAccountType(this.accounts);
@@ -246,7 +246,7 @@ public class AccountDatabase {
      */
     public String printUpdatedBalances(){
         if (numAcct > 0) {
-            String toAdd = "\n*list of accounts with fees and interests applied.";
+            String toAdd = "\n*list of accounts with fees and interests applied.\n";
             for (int i = 0; i < this.accounts.length; i++) {
                 if (this.accounts[i] != null) {
                     sortByAccountType(this.accounts);

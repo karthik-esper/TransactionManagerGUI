@@ -22,6 +22,8 @@ public class TransactionManagerController {
     @FXML
     private RadioButton campusCA;
     @FXML
+    private RadioButton loyaltyButton;
+    @FXML
     private TextField openFirstName;
     @FXML
     private TextField openLastName;
@@ -144,13 +146,22 @@ public class TransactionManagerController {
         }
         Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
         if (AccountType.getSelectedToggle() != null) {
-//            return createAccount();
+            Account newAcc = createAccount(holder, getInitialDeposit());
+            if (newAcc != null) {
+                accountDatabase.open(newAcc);
+            }
+            else {
+                return;
+            }
+        }
+        else {
+            openConsole.setText("Button not selected for account type, please do so.");
+            return;
         }
         openFirstName.clear();
         openLastName.clear();
         openDOB.getEditor().clear();
         initialDeposit.clear();
-
     }
 
     protected void onCloseClick() {
@@ -195,26 +206,100 @@ public class TransactionManagerController {
         return true;
     }
 
-//    private Account createAccount(Profile holder, double deposit){
-//        if (checkingButton.isSelected() || collegeCheckingButton.isSelected()) {
-//
-//        }
-//    }
-
-
-    @FXML
-    protected void getInitialDeposit() {
-        int initDeposit = Integer.parseInt(initialDeposit.getText());
-        System.out.println(initDeposit);
-    }
-    @FXML
-    protected void getWithdrawFirstName() {
-        System.out.print(withdrawFirstName.getText());
+    private Account createAccount(Profile holder, double deposit) {
+        if (getInitialDeposit() < 0) {
+            openConsole.setText("No balance entered, please enter an initial deposit.");
+            return null;
+        }
+        if (checkingButton.isSelected() || collegeCheckingButton.isSelected()) {
+            Account newAccount = createChecking(holder, deposit);
+            return newAccount;
+        }
+        else {
+            Account newAccount = createSavings(holder, deposit);
+            return newAccount;
+        }
     }
 
+    private Account createChecking(Profile holder, double deposit){
+        if (checkingButton.isSelected()) {
+            openConsole.clear();
+            openConsole.setText("Checking account created");
+            return new Checking(holder, deposit);
+        }
+        else {
+            if (CampusType.getSelectedToggle() != null) {
+                if (campusNB.isSelected()) {
+                    openConsole.clear();
+                    openConsole.setText("College Checking account created");
+                    return new CollegeChecking(holder, deposit, Campus.NEW_BRUNSWICK);
+                }
+                else if (campusNW.isSelected()) {
+                    openConsole.clear();
+                    openConsole.setText("College Checking account created");
+                    return new CollegeChecking(holder, deposit, Campus.NEWARK);
+                }
+                else if (campusCA.isSelected()) {
+                    openConsole.clear();
+                    openConsole.setText("College Checking account created");
+                    return new CollegeChecking(holder, deposit, Campus.CAMDEN);
+                }
+            }
+            openConsole.setText("Account could not be created, campus not selected");
+            return null;
+        }
+    }
+
+    private Account createSavings(Profile holder, double deposit) {
+        if (savingsButton.isSelected()) {
+            if (loyaltyButton.isSelected()) {
+                openConsole.clear();
+                openConsole.setText("Savings account created");
+                return new Savings(holder, deposit, true);
+            }
+            else {
+                openConsole.clear();
+                openConsole.setText("Savings account created");
+                return new Savings(holder, deposit, false);
+            }
+        }
+        else {
+            if (getInitialDeposit() >= 2000) {
+                openConsole.clear();
+                openConsole.setText("Money Market account created");
+                return new MoneyMarket(holder, deposit);
+            }
+            else {
+                openConsole.setText("Not enough money for initial deposit!");
+                return null;
+            }
+        }
+
+    }
+
+
+
+
     @FXML
-    protected void getWithdrawLastName() {
-        System.out.println(withdrawLastName.getText());
+    protected int getInitialDeposit() {
+        if (!initialDeposit.getText().isEmpty()) {
+            int initDeposit = Integer.parseInt(initialDeposit.getText());
+            return initDeposit;
+        }
+        else {
+            return -1;
+        }
+
+
+    }
+    @FXML
+    protected String getWithdrawFirstName() {
+        return withdrawFirstName.getText();
+    }
+
+    @FXML
+    protected String getWithdrawLastName() {
+        return withdrawLastName.getText();
     }
 
     @FXML

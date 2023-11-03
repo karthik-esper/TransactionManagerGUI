@@ -96,7 +96,7 @@ public abstract class Account implements Comparable<Account> {
         }
         else {
             String toTrim = this.getClass().toString();
-            template += toTrim.substring(14) + "::";
+            template += toTrim.substring(18) + "::";
         }
         template += this.holder.toString() + "::Balance $" + String.format("%,.2f",this.balance);
         if (this instanceof CollegeChecking) {
