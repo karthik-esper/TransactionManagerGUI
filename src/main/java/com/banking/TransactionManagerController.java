@@ -149,6 +149,22 @@ public class TransactionManagerController {
 
     }
 
+    protected void onCloseClick() {
+        openFirstName.clear();
+        openLastName.clear();
+        openDOB.getEditor().clear();
+        initialDeposit.clear();
+
+    }
+
+    protected void openClearClick() {
+        openFirstName.clear();
+        openLastName.clear();
+        openDOB.getEditor().clear();
+        initialDeposit.clear();
+
+    }
+
     private boolean validDOB(String date) {
         if (getOpenDate().equals("")) {
             openConsole.setText("Date of birth not entered!");
