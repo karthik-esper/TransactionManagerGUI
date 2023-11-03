@@ -48,6 +48,9 @@ public class TransactionManagerController {
     private TextField initialDeposit;
 
     @FXML
+    private TextField changeAmount;
+
+    @FXML
     protected void onHelloButtonClick() {
         openConsole.setText("Welcome to JavaFX Application!");
         System.out.println("Hola ninos!");
@@ -118,8 +121,33 @@ public class TransactionManagerController {
         int initDeposit = Integer.parseInt(initialDeposit.getText());
         System.out.println(initDeposit);
     }
+    @FXML
+    protected void getWithdrawFirstName() {
+        System.out.print(withdrawFirstName.getText());
+    }
 
+    @FXML
+    protected void getWithdrawLastName() {
+        System.out.println(withdrawLastName.getText());
+    }
 
+    @FXML
+    protected void getWithdrawDOB() {
+        if (withdrawDOB.getValue() != null) {
+            String date = withdrawDOB.getValue().toString();
+            String year = date.substring(0,4);
+            String month = date.substring(5,7);
+            String day = date.substring(8);
+            Date withdrawDate = new Date(month + "/" + day + "/" + year);
+            System.out.println(withdrawDate);
+        }
+    }
+
+    @FXML
+    protected void getAmount() {
+        int amount = Integer.parseInt(changeAmount.getText());
+        System.out.println(amount);
+    }
 
 
 
