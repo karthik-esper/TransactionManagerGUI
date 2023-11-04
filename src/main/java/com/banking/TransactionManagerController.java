@@ -16,6 +16,14 @@ public class TransactionManagerController {
     @FXML
     private RadioButton moneyMarket;
     @FXML
+    private RadioButton withdrawCheckingButton;
+    @FXML
+    private RadioButton withdrawCollegeCheckingButton;
+    @FXML
+    private RadioButton withdrawSavingsButton;
+    @FXML
+    private RadioButton withdrawMoneyMarket;
+    @FXML
     private RadioButton campusNB;
     @FXML
     private RadioButton campusNW;
@@ -45,25 +53,16 @@ public class TransactionManagerController {
     private TextField firstName;
     @FXML
     private TextField lastName;
-
     @FXML
     private TextField initialDeposit;
-
     @FXML
     private TextField changeAmount;
-
     @FXML
     private ToggleGroup AccountType;
-
     @FXML
     private ToggleGroup CampusType;
-
-
     @FXML
-    protected void onHelloButtonClick() {
-        openConsole.setText("Welcome to JavaFX Application!");
-        System.out.println("Hola ninos!");
-    }
+    private ToggleGroup WithdrawAccountType;
 
     @FXML
     protected void printAccounts() {
