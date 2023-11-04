@@ -68,7 +68,7 @@
                         <Blend />
                      </effect></Label>
                   <Button layoutX="169.0" layoutY="246.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Close" />
-                  <Button layoutX="299.0" layoutY="245.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Clear" />
+                  <Button layoutX="299.0" layoutY="245.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Clear" onAction = "#openClearClick" />
                   <Label layoutX="42.0" layoutY="169.0" prefHeight="33.0" prefWidth="76.0" text="Account type: ">
                      <effect>
                         <Blend />

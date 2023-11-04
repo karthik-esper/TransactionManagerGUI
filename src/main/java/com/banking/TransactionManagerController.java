@@ -171,6 +171,7 @@ public class TransactionManagerController {
 
     }
 
+    @FXML
     protected void openClearClick() {
         openFirstName.clear();
         openLastName.clear();
