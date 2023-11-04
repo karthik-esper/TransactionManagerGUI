@@ -133,19 +133,19 @@ public class TransactionManagerController {
     }
     @FXML
     protected void onOpenClick() {
-        if (getOpenFirstName().equals("") || getOpenLastName().equals("")) {
-            openConsole.setText("Invalid name, either first name or last name is empty");
-            return;
-        }
-        if (getOpenDate() == null) {
-            openConsole.setText("The date entered is not valid!");
-            return;
-        }
-        if (!validAge(getOpenDate().toString())) {
-            return;
-        }
-        Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
         if (AccountType.getSelectedToggle() != null) {
+            if (getOpenFirstName().equals("") || getOpenLastName().equals("")) {
+                openConsole.setText("Invalid name, either first name or last name is empty");
+                return;
+            }
+            if (getOpenDate() == null) {
+                openConsole.setText("The date entered is not valid!");
+                return;
+            }
+            if (!validAge(getOpenDate().toString())) {
+                return;
+            }
+            Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
             Account newAcc = createAccount(holder, getInitialDeposit());
             if (newAcc != null) {
                 accountDatabase.open(newAcc);
@@ -230,6 +230,9 @@ public class TransactionManagerController {
         }
         else {
             if (CampusType.getSelectedToggle() != null) {
+                if (!validAge(getOpenDate().toString(), "Overload")){
+                    return null;
+                }
                 if (campusNB.isSelected()) {
                     openConsole.clear();
                     openConsole.setText("College Checking account created");
