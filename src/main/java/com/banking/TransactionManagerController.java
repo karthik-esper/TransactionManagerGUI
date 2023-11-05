@@ -188,12 +188,14 @@ public class TransactionManagerController {
             Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
             double newBalanceAmount = getAmount();
             Account tempAccount = createAccount(holder, newBalanceAmount);
-            if (accountDatabase.contains(tempAccount)) {
-                accountDatabase.deposit(tempAccount);
-                withdrawConsole.setText("Amount Deposited: " + newBalanceAmount);
-            } else {
-                withdrawConsole.setText("Account not found!");
-                return;
+            if (tempAccount != null){
+                if (accountDatabase.contains(tempAccount)) {
+                    accountDatabase.deposit(tempAccount);
+                    withdrawConsole.setText("Amount Deposited: " + newBalanceAmount);
+                } else {
+                    withdrawConsole.setText("Account not found!");
+                    return;
+                }
             }
         }
         else {
@@ -213,16 +215,18 @@ public class TransactionManagerController {
             Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
             double newBalanceAmount = getAmount();
             Account tempAccount = createAccount(holder, newBalanceAmount);
-            if (accountDatabase.contains(tempAccount)) {
-                if (accountDatabase.withdraw(tempAccount)) {
-                    withdrawConsole.setText("Amount Withdrawn: " + newBalanceAmount);
-                } else {
-                    withdrawConsole.setText("Insufficient funds to withdraw.");
+            if (tempAccount != null) {
+                if (accountDatabase.contains(tempAccount)) {
+                    if (accountDatabase.withdraw(tempAccount)) {
+                        withdrawConsole.setText("Amount Withdrawn: " + newBalanceAmount);
+                    } else {
+                        withdrawConsole.setText("Insufficient funds to withdraw.");
+                    }
                 }
-            }
-            else {
-                withdrawConsole.setText("Account not found!");
-                return;
+                else {
+                    withdrawConsole.setText("Account not found!");
+                    return;
+                }
             }
         }
         else {
