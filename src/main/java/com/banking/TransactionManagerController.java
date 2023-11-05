@@ -87,11 +87,6 @@ public class TransactionManagerController {
         accountDatabaseOutput.clear();
     }
 
-
-    @FXML
-    protected void Warning() {
-        openConsole.setText("Why'd you push it man?");
-    }
     @FXML
     protected void campusSelector() {
         if(collegeCheckingButton.isSelected()) {
