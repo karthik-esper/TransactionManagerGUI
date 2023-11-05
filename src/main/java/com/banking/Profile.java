@@ -22,6 +22,14 @@ public class Profile implements Comparable<Profile>{
     }
 
     /**
+     * Getter method for the date of birth
+     * @return the dob
+     */
+    public Date getDob() {
+        return dob;
+    }
+
+    /**
      *
      * @param profile the object to be compared.
      * @return 1 if this's attributes are lexicographically greater than profile's, 0 if equal, -1 otherwise

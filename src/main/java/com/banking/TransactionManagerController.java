@@ -258,7 +258,7 @@ public class TransactionManagerController {
         }
         else {
             if (CampusType.getSelectedToggle() != null) {
-                if (!validAge(getOpenDate().toString(), "Overload")){
+                if (!validAge(holder.getDob().toString(), "Overload")){
                     return null;
                 }
                 if (campusNB.isSelected()) {
@@ -294,7 +294,7 @@ public class TransactionManagerController {
         }
         else {
             if (CampusType.getSelectedToggle() != null) {
-                if (!validAge(getOpenDate().toString(), "Overload")){
+                if (!validAge(holder.getDob().toString(), "Overload")){
                     return null;
                 }
                 if (campusNB.isSelected()) {
