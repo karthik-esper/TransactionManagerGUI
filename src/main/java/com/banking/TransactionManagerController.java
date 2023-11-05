@@ -127,6 +127,7 @@ public class TransactionManagerController {
                     }
                     else {
                         openConsole.setText("Account is already in database.");
+                        return;
                     }
 
             }
@@ -223,6 +224,7 @@ public class TransactionManagerController {
                     }
                     else {
                         withdrawConsole.setText("Insufficient funds to withdraw.");
+                        return;
                     }
                 }
                 else {
