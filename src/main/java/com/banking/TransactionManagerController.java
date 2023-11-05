@@ -214,7 +214,8 @@ public class TransactionManagerController {
                 if (accountDatabase.contains(tempAccount)) {
                     if (accountDatabase.withdraw(tempAccount)) {
                         withdrawConsole.setText("Amount Withdrawn: " + newBalanceAmount);
-                    } else {
+                    }
+                    else {
                         withdrawConsole.setText("Insufficient funds to withdraw.");
                     }
                 }
@@ -236,7 +237,6 @@ public class TransactionManagerController {
         withdrawLastName.clear();
         withdrawDOB.getEditor().clear();
         changeAmount.clear();
-        withdrawConsole.clear();
         withdrawAccountType.selectToggle(null);
     }
     @FXML
@@ -285,14 +285,14 @@ public class TransactionManagerController {
     }
 
     @FXML
-    protected int getInitialDeposit() {
+    protected double getInitialDeposit() {
         if (!initialDeposit.getText().isEmpty()) {
             try {
                 Double.parseDouble(initialDeposit.getText());
             } catch (NumberFormatException e) {
                 return -1;
             }
-            int initDeposit = Integer.parseInt(initialDeposit.getText());
+            double initDeposit = Double.parseDouble(initialDeposit.getText());
             return initDeposit;
         }
         else {
@@ -301,14 +301,14 @@ public class TransactionManagerController {
     }
 
     @FXML
-    protected int getAmount() {
+    protected double getAmount() {
         if (!changeAmount.getText().isEmpty()) {
             try {
                 Double.parseDouble(changeAmount.getText());
             } catch (NumberFormatException e) {
                 return -1;
             }
-            int changeAmt = Integer.parseInt(changeAmount.getText());
+            double changeAmt = Double.parseDouble(changeAmount.getText());
             return changeAmt;
         }
         else {
