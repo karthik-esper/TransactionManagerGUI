@@ -226,7 +226,7 @@ public class TransactionManagerController {
 
     private Account createAccount(Profile holder, double deposit) {
         if (getInitialDeposit() < 0) {
-            openConsole.setText("No balance entered, please enter an initial deposit.");
+            openConsole.setText("Balance entered is either empty or invalid, please try again.");
             return null;
         }
         if (checkingButton.isSelected() || collegeCheckingButton.isSelected()) {
@@ -363,6 +363,11 @@ public class TransactionManagerController {
     @FXML
     protected int getInitialDeposit() {
         if (!initialDeposit.getText().isEmpty()) {
+            try {
+                Double.parseDouble(initialDeposit.getText());
+            } catch (NumberFormatException e) {
+                return -1;
+            }
             int initDeposit = Integer.parseInt(initialDeposit.getText());
             return initDeposit;
         }
@@ -396,9 +401,19 @@ public class TransactionManagerController {
     }
 
     @FXML
-    protected void getAmount() {
-        int amount = Integer.parseInt(changeAmount.getText());
-        System.out.println(amount);
+    protected int getAmount() {
+        if (!changeAmount.getText().isEmpty()) {
+            try {
+                Double.parseDouble(changeAmount.getText());
+            } catch (NumberFormatException e) {
+                return -1;
+            }
+            int changeAmt = Integer.parseInt(changeAmount.getText());
+            return changeAmt;
+        }
+        else {
+            return -1;
+        }
     }
 
 
