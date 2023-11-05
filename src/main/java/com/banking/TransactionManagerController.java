@@ -147,7 +147,7 @@ public class TransactionManagerController {
         Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
         if (AccountType.getSelectedToggle() != null) {
             Account newAcc = createAccount(holder, getInitialDeposit());
-            if (newAcc != null) {
+                if (newAcc != null) {
                 accountDatabase.open(newAcc);
             }
             else {
@@ -158,13 +158,28 @@ public class TransactionManagerController {
             openConsole.setText("Button not selected for account type, please do so.");
             return;
         }
+
         openFirstName.clear();
         openLastName.clear();
         openDOB.getEditor().clear();
         initialDeposit.clear();
     }
-
+    @FXML
     protected void onCloseClick() {
+        if (getOpenDate() == null) {
+            openConsole.setText("The date entered is not valid!");
+            return;
+        }
+        Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
+        if (AccountType.getSelectedToggle() != null) {
+            Account newAcc = createAccount(holder);
+            if (accountDatabase.contains(newAcc)) {
+                accountDatabase.close(newAcc);
+            }
+            else {
+                return;
+            }
+        }
         openFirstName.clear();
         openLastName.clear();
         openDOB.getEditor().clear();
@@ -217,6 +232,17 @@ public class TransactionManagerController {
         }
         else {
             Account newAccount = createSavings(holder, deposit);
+            return newAccount;
+        }
+    }
+
+    private Account createAccount(Profile holder) {
+        if (checkingButton.isSelected() || collegeCheckingButton.isSelected()) {
+            Account newAccount = createChecking(holder, 0);
+            return newAccount;
+        }
+        else {
+            Account newAccount = createSavings(holder, 0);
             return newAccount;
         }
     }
