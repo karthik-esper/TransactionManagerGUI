@@ -122,7 +122,13 @@ public class TransactionManagerController {
             Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
             Account newAcc = createAccount(holder, getInitialDeposit());
                 if (newAcc != null) {
-                accountDatabase.open(newAcc);
+                    if (!accountDatabase.contains(newAcc)) {
+                        accountDatabase.open(newAcc);
+                    }
+                    else {
+                        openConsole.setText("Account is already in database.");
+                    }
+
             }
             else {
                 return;
