@@ -16,6 +16,14 @@ public class TransactionManagerController {
     @FXML
     private RadioButton moneyMarket;
     @FXML
+    private RadioButton withdrawCheckingButton;
+    @FXML
+    private RadioButton withdrawCollegeCheckingButton;
+    @FXML
+    private RadioButton withdrawSavingsButton;
+    @FXML
+    private RadioButton withdrawMoneyMarket;
+    @FXML
     private RadioButton campusNB;
     @FXML
     private RadioButton campusNW;
@@ -45,25 +53,16 @@ public class TransactionManagerController {
     private TextField firstName;
     @FXML
     private TextField lastName;
-
     @FXML
     private TextField initialDeposit;
-
     @FXML
     private TextField changeAmount;
-
     @FXML
     private ToggleGroup AccountType;
-
     @FXML
     private ToggleGroup CampusType;
-
-
     @FXML
-    protected void onHelloButtonClick() {
-        openConsole.setText("Welcome to JavaFX Application!");
-        System.out.println("Hola ninos!");
-    }
+    private ToggleGroup WithdrawAccountType;
 
     @FXML
     protected void printAccounts() {
@@ -133,19 +132,19 @@ public class TransactionManagerController {
     }
     @FXML
     protected void onOpenClick() {
-        if (getOpenFirstName().equals("") || getOpenLastName().equals("")) {
-            openConsole.setText("Invalid name, either first name or last name is empty");
-            return;
-        }
-        if (getOpenDate() == null) {
-            openConsole.setText("The date entered is not valid!");
-            return;
-        }
-        if (!validAge(getOpenDate().toString())) {
-            return;
-        }
-        Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
         if (AccountType.getSelectedToggle() != null) {
+            if (getOpenFirstName().equals("") || getOpenLastName().equals("")) {
+                openConsole.setText("Invalid name, either first name or last name is empty");
+                return;
+            }
+            if (getOpenDate() == null) {
+                openConsole.setText("The date entered is not valid!");
+                return;
+            }
+            if (!validAge(getOpenDate().toString())) {
+                return;
+            }
+            Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
             Account newAcc = createAccount(holder, getInitialDeposit());
                 if (newAcc != null) {
                 accountDatabase.open(newAcc);
@@ -186,6 +185,7 @@ public class TransactionManagerController {
         initialDeposit.clear();
     }
 
+    @FXML
     protected void openClearClick() {
         openFirstName.clear();
         openLastName.clear();
@@ -255,6 +255,9 @@ public class TransactionManagerController {
         }
         else {
             if (CampusType.getSelectedToggle() != null) {
+                if (!validAge(getOpenDate().toString(), "Overload")){
+                    return null;
+                }
                 if (campusNB.isSelected()) {
                     openConsole.clear();
                     openConsole.setText("College Checking account created");
