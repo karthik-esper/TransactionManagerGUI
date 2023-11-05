@@ -236,6 +236,7 @@ public class TransactionManagerController {
         withdrawLastName.clear();
         withdrawDOB.getEditor().clear();
         changeAmount.clear();
+        withdrawConsole.clear();
         withdrawAccountType.selectToggle(null);
     }
     @FXML
