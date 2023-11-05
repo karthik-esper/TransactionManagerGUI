@@ -199,33 +199,6 @@ public class TransactionManagerController {
         return null;
     }
 
-    private boolean validAge(String date) {
-        Date Test = new Date(date);
-        Date tooEarly = new Date ("11/6/2007");
-        Date tooLate = new Date ("11/6/1999");
-        if (tooEarly.compareTo(Test) == -1) {
-            openConsole.setText("DOB invalid: "  + date + " under 16.");
-            return false;
-        }
-
-        return true;
-    }
-
-    private boolean validAge(String date, String overload) {
-        Date Test = new Date(date);
-        Date tooEarly = new Date ("11/6/2007");
-        Date tooLate = new Date ("11/6/1999");
-        if (tooEarly.compareTo(Test) == -1) {
-            openConsole.setText("DOB invalid: "  + date + " under 16.");
-            return false;
-        }
-        else if (tooLate.compareTo(Test) == 1) {
-            openConsole.setText("DOB invalid: "  + date + " over 24.");
-            return false;
-        }
-        return true;
-    }
-
     @FXML
     protected String getWithdrawFirstName() {
         return withdrawFirstName.getText();
@@ -280,6 +253,34 @@ public class TransactionManagerController {
             return -1;
         }
     }
+
+    private boolean validAge(String date) {
+        Date Test = new Date(date);
+        Date tooEarly = new Date ("11/6/2007");
+        Date tooLate = new Date ("11/6/1999");
+        if (tooEarly.compareTo(Test) == -1) {
+            openConsole.setText("DOB invalid: "  + date + " under 16.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean validAge(String date, String overload) {
+        Date Test = new Date(date);
+        Date tooEarly = new Date ("11/6/2007");
+        Date tooLate = new Date ("11/6/1999");
+        if (tooEarly.compareTo(Test) == -1) {
+            openConsole.setText("DOB invalid: "  + date + " under 16.");
+            return false;
+        }
+        else if (tooLate.compareTo(Test) == 1) {
+            openConsole.setText("DOB invalid: "  + date + " over 24.");
+            return false;
+        }
+        return true;
+    }
+
     private Account createAccount(Profile holder, double deposit) {
         if (getInitialDeposit() < 0) {
             openConsole.setText("Balance entered is either empty or invalid, please try again.");
