@@ -136,35 +136,33 @@ public class TransactionManagerController {
             openConsole.setText("Button not selected for account type, please do so.");
             return;
         }
-
-        openFirstName.clear();
-        openLastName.clear();
-        openDOB.getEditor().clear();
-        initialDeposit.clear();
+        openClearClick();
     }
     @FXML
     protected void onCloseClick() {
-        if (getOpenDate() == null) {
-            openConsole.setText("The date entered is not valid!");
-            return;
-        }
-        Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
         if (AccountType.getSelectedToggle() != null) {
-            Account newAcc = createAccount(holder);
-            if (accountDatabase.contains(newAcc)) {
-                if (accountDatabase.close(newAcc)) {
-                    openConsole.setText("Account successfully closed!");
-                }
-            }
-            else {
-                openConsole.setText("Account not closed, account not found in database.");
+            if (getOpenDate() == null) {
+                openConsole.setText("The date entered is not valid!");
                 return;
             }
+            Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
+            if (AccountType.getSelectedToggle() != null) {
+                Account newAcc = createAccount(holder);
+                if (accountDatabase.contains(newAcc)) {
+                    if (accountDatabase.close(newAcc)) {
+                        openConsole.setText("Account successfully closed!");
+                    }
+                } else {
+                    openConsole.setText("Account not closed, account not found in database.");
+                    return;
+                }
+            }
         }
-        openFirstName.clear();
-        openLastName.clear();
-        openDOB.getEditor().clear();
-        initialDeposit.clear();
+        else {
+            openConsole.setText("Button not selected for account type, please do so.");
+            return;
+        }
+        openClearClick();
     }
 
     @FXML
@@ -173,40 +171,55 @@ public class TransactionManagerController {
         openLastName.clear();
         openDOB.getEditor().clear();
         initialDeposit.clear();
+        AccountType.selectToggle(null);
+        CampusType.selectToggle(null);
     }
 
     @FXML
     protected void depositClick() {
-        Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
-        Account tempAccount = createAccount(holder);
-        if (accountDatabase.contains(tempAccount)) {
-            int newBalanceAmount = Integer.parseInt(changeAmount.getText());
-            Account newAccount = createAccount(holder, newBalanceAmount);
-            accountDatabase.deposit(newAccount);
-            withdrawConsole.setText("Amount Deposited: " + newBalanceAmount);
+        if (WithdrawAccountType.getSelectedToggle() != null) {
+            Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
+            Account tempAccount = createAccount(holder);
+            if (accountDatabase.contains(tempAccount)) {
+                int newBalanceAmount = getAmount();
+                Account newAccount = createAccount(holder, newBalanceAmount);
+                accountDatabase.deposit(newAccount);
+                withdrawConsole.setText("Amount Deposited: " + newBalanceAmount);
+            } else {
+                withdrawConsole.setText("Account not found!");
+                return;
+            }
         }
         else {
-            withdrawConsole.setText("Account not found!");
+            withdrawConsole.setText("Button not selected for account type, please do so.");
+            return;
         }
+        depositWithdrawClear();
     }
     @FXML
     protected void withdrawClick() {
-        Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
-        Account tempAccount = createAccount(holder);
-        if (accountDatabase.contains(tempAccount)) {
-            int newBalanceAmount = Integer.parseInt(changeAmount.getText());
-            Account newAccount = createAccount(holder, newBalanceAmount);
-            if (accountDatabase.withdraw(newAccount)) {
-                withdrawConsole.setText("Amount Withdrawn: " + newBalanceAmount);
-            }
-            else {
-                withdrawConsole.setText("Insufficient funds to withdraw.");
-            }
+        if (WithdrawAccountType.getSelectedToggle() != null) {
+            Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
+            Account tempAccount = createAccount(holder);
+            if (accountDatabase.contains(tempAccount)) {
+                int newBalanceAmount = getAmount();
+                Account newAccount = createAccount(holder, newBalanceAmount);
+                if (accountDatabase.withdraw(newAccount)) {
+                    withdrawConsole.setText("Amount Withdrawn: " + newBalanceAmount);
+                } else {
+                    withdrawConsole.setText("Insufficient funds to withdraw.");
+                }
 
+            } else {
+                withdrawConsole.setText("Account not found!");
+                return;
+            }
         }
         else {
-            withdrawConsole.setText("Account not found!");
+            withdrawConsole.setText("Button not selected for account type, please do so.");
+            return;
         }
+        depositWithdrawClear();
     }
     @FXML
     protected void depositWithdrawClear() {
@@ -214,6 +227,7 @@ public class TransactionManagerController {
         withdrawLastName.clear();
         withdrawDOB.getEditor().clear();
         changeAmount.clear();
+        WithdrawAccountType.selectToggle(null);
     }
     @FXML
     protected String getOpenFirstName() {
