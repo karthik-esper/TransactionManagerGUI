@@ -173,10 +173,44 @@ public class TransactionManagerController {
         openLastName.clear();
         openDOB.getEditor().clear();
         initialDeposit.clear();
-
     }
 
-
+    @FXML
+    protected void depositClick() {
+        Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
+        Account tempAccount = createAccount(holder);
+        if (accountDatabase.contains(tempAccount)) {
+            int newBalanceAmount = Integer.parseInt(changeAmount.getText());
+            Account newAccount = createAccount(holder, newBalanceAmount);
+            accountDatabase.deposit(newAccount);
+            openConsole.setText("Amount Deposited");
+        }
+        else {
+            openConsole.setText("Account not found!");
+        }
+    }
+    @FXML
+    protected void withdrawClick() {
+        Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
+        Account tempAccount = createAccount(holder);
+        if (accountDatabase.contains(tempAccount)) {
+            int newBalanceAmount = Integer.parseInt(changeAmount.getText());
+            Account newAccount = createAccount(holder, newBalanceAmount);
+            accountDatabase.withdraw(newAccount);
+            openConsole.setText("Amount Withdrawn");
+            openConsole.setText(newAccount.toString());
+        }
+        else {
+            openConsole.setText("Account not found!");
+        }
+    }
+    @FXML
+    protected void depositWithdrawClear() {
+        withdrawFirstName.clear();
+        withdrawLastName.clear();
+        withdrawDOB.getEditor().clear();
+        changeAmount.clear();
+    }
     @FXML
     protected String getOpenFirstName() {
         return openFirstName.getText();
@@ -188,7 +222,7 @@ public class TransactionManagerController {
     }
     @FXML
     protected Date getOpenDate() {
-        if (openDOB.getValue() != null) {
+        if (openDOB.getValue() != null || withdrawDOB.getValue() != null) {
             String date = openDOB.getValue().toString();
             String year = date.substring(0,4);
             String month = date.substring(5,7);
@@ -255,7 +289,7 @@ public class TransactionManagerController {
     }
 
     private Account createAccount(Profile holder, double deposit) {
-        if (getInitialDeposit() < 0) {
+        if (getInitialDeposit() < 0 && getAmount() < 0) {
             openConsole.setText("Balance entered is either empty or invalid, please try again.");
             return null;
         }

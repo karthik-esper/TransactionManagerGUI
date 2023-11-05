@@ -115,9 +115,9 @@
                         <Blend />
                      </effect></Label>
                   <TextArea fx:id="withdrawConsole" layoutX="46.0" layoutY="262.0" prefHeight="286.0" prefWidth="507.0" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="46.000000000000114" />
-                  <Button layoutX="45.0" layoutY="217.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="117.0" text="Deposit" />
-                  <Button layoutX="233.0" layoutY="215.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="122.0" text="Withdraw" />
-                  <Button layoutX="426.0" layoutY="215.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="128.0" text="Clear" />
+                  <Button layoutX="45.0" layoutY="217.0" mnemonicParsing="false" onAction="#depositClick" prefHeight="27.0" prefWidth="117.0" text="Deposit" />
+                  <Button layoutX="233.0" layoutY="215.0" mnemonicParsing="false" onAction="#withdrawClick" prefHeight="31.0" prefWidth="122.0" text="Withdraw" />
+                  <Button layoutX="426.0" layoutY="215.0" mnemonicParsing="false" onAction="#depositWithdrawClear" prefHeight="31.0" prefWidth="128.0" text="Clear" />
                </children></AnchorPane>
       </content>
     </Tab>
