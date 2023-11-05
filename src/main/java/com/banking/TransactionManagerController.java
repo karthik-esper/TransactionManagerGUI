@@ -62,7 +62,7 @@ public class TransactionManagerController {
     @FXML
     private ToggleGroup CampusType;
     @FXML
-    private ToggleGroup WithdrawAccountType;
+    private ToggleGroup withdrawAccountType;
 
     @FXML
     protected void printAccounts() {
@@ -144,22 +144,27 @@ public class TransactionManagerController {
     }
     @FXML
     protected void onCloseClick() {
-        if (getOpenDate() == null) {
-            openConsole.setText("The date entered is not valid!");
-            return;
-        }
-        Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
         if (AccountType.getSelectedToggle() != null) {
-            Account newAcc = createAccount(holder);
-            if (accountDatabase.contains(newAcc)) {
-                if (accountDatabase.close(newAcc)) {
-                    openConsole.setText("Account successfully closed!");
-                }
-            }
-            else {
-                openConsole.setText("Account not closed, account not found in database.");
+            if (getOpenDate() == null) {
+                openConsole.setText("The date entered is not valid!");
                 return;
             }
+            Profile holder = new Profile(getOpenFirstName(), getOpenLastName(), getOpenDate());
+            if (AccountType.getSelectedToggle() != null) {
+                Account newAcc = createAccount(holder);
+                if (accountDatabase.contains(newAcc)) {
+                    if (accountDatabase.close(newAcc)) {
+                        openConsole.setText("Account successfully closed!");
+                    }
+                } else {
+                    openConsole.setText("Account not closed, account not found in database.");
+                    return;
+                }
+            }
+        }
+        else {
+            openConsole.setText("Button not selected for account type, please do so.");
+            return;
         }
         openFirstName.clear();
         openLastName.clear();
@@ -177,36 +182,55 @@ public class TransactionManagerController {
 
     @FXML
     protected void depositClick() {
-        Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
-        Account tempAccount = createAccount(holder);
-        if (accountDatabase.contains(tempAccount)) {
-            int newBalanceAmount = Integer.parseInt(changeAmount.getText());
-            Account newAccount = createAccount(holder, newBalanceAmount);
-            accountDatabase.deposit(newAccount);
-            withdrawConsole.setText("Amount Deposited: " + newBalanceAmount);
+        if (withdrawAccountType.getSelectedToggle() != null) {
+            Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
+            Account tempAccount = createAccount(holder);
+            if (accountDatabase.contains(tempAccount)) {
+                int newBalanceAmount = getAmount();
+                Account newAccount = createAccount(holder, newBalanceAmount);
+                if (newAccount != null) {
+                    accountDatabase.deposit(newAccount);
+                    withdrawConsole.setText("Amount Deposited: " + newBalanceAmount);
+                }
+            } else {
+                withdrawConsole.setText("Account not found!");
+            }
         }
         else {
-            withdrawConsole.setText("Account not found!");
+            withdrawConsole.setText("Button not selected for account type, please do so.");
+            return;
         }
+        withdrawFirstName.clear();
+        withdrawLastName.clear();
+        withdrawDOB.getEditor().clear();
+        changeAmount.clear();
     }
     @FXML
     protected void withdrawClick() {
-        Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
-        Account tempAccount = createAccount(holder);
-        if (accountDatabase.contains(tempAccount)) {
-            int newBalanceAmount = Integer.parseInt(changeAmount.getText());
-            Account newAccount = createAccount(holder, newBalanceAmount);
-            if (accountDatabase.withdraw(newAccount)) {
-                withdrawConsole.setText("Amount Withdrawn: " + newBalanceAmount);
-            }
-            else {
-                withdrawConsole.setText("Insufficient funds to withdraw.");
-            }
+        if (withdrawAccountType.getSelectedToggle() != null) {
+            Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
+            Account tempAccount = createAccount(holder);
+            if (accountDatabase.contains(tempAccount)) {
+                int newBalanceAmount = getAmount();
+                Account newAccount = createAccount(holder, newBalanceAmount);
+                if (accountDatabase.withdraw(newAccount)) {
+                    withdrawConsole.setText("Amount Withdrawn: " + newBalanceAmount);
+                } else {
+                    withdrawConsole.setText("Insufficient funds to withdraw.");
+                }
 
+            } else {
+                withdrawConsole.setText("Account not found!");
+            }
         }
         else {
-            withdrawConsole.setText("Account not found!");
+            withdrawConsole.setText("Button not selected for account type, please do so.");
+            return;
         }
+        withdrawFirstName.clear();
+        withdrawLastName.clear();
+        withdrawDOB.getEditor().clear();
+        changeAmount.clear();
     }
     @FXML
     protected void depositWithdrawClear() {
@@ -308,7 +332,8 @@ public class TransactionManagerController {
     }
 
     private Account createAccount(Profile holder) {
-        if (checkingButton.isSelected() || collegeCheckingButton.isSelected()) {
+        if (checkingButton.isSelected() || collegeCheckingButton.isSelected()
+                || withdrawCheckingButton.isSelected() || withdrawCollegeCheckingButton.isSelected()) {
             Account newAccount = createChecking(holder);
             return newAccount;
         }
@@ -319,7 +344,7 @@ public class TransactionManagerController {
     }
 
     private Account createChecking(Profile holder, double deposit){
-        if (checkingButton.isSelected()) {
+        if (checkingButton.isSelected() || withdrawCheckingButton.isSelected()) {
             openConsole.clear();
             openConsole.setText("Checking account created");
             return new Checking(holder, deposit);
