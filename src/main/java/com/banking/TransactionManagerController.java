@@ -173,9 +173,12 @@ public class TransactionManagerController {
         if (AccountType.getSelectedToggle() != null) {
             Account newAcc = createAccount(holder);
             if (accountDatabase.contains(newAcc)) {
-                accountDatabase.close(newAcc);
+                if (accountDatabase.close(newAcc)) {
+                    openConsole.setText("Account successfully closed!");
+                }
             }
             else {
+                openConsole.setText("Account not closed, account not found in database.");
                 return;
             }
         }
@@ -238,11 +241,11 @@ public class TransactionManagerController {
 
     private Account createAccount(Profile holder) {
         if (checkingButton.isSelected() || collegeCheckingButton.isSelected()) {
-            Account newAccount = createChecking(holder, 0);
+            Account newAccount = createChecking(holder);
             return newAccount;
         }
         else {
-            Account newAccount = createSavings(holder, 0);
+            Account newAccount = createSavings(holder);
             return newAccount;
         }
     }
@@ -279,6 +282,39 @@ public class TransactionManagerController {
         }
     }
 
+    /**
+     * This one creates account for closing
+     * @param holder
+     * @return
+     */
+    private Account createChecking(Profile holder){
+        if (checkingButton.isSelected()) {
+            openConsole.clear();
+            return new Checking(holder, 0);
+        }
+        else {
+            if (CampusType.getSelectedToggle() != null) {
+                if (!validAge(getOpenDate().toString(), "Overload")){
+                    return null;
+                }
+                if (campusNB.isSelected()) {
+                    openConsole.clear();
+                    return new CollegeChecking(holder, 0, Campus.NEW_BRUNSWICK);
+                }
+                else if (campusNW.isSelected()) {
+                    openConsole.clear();
+                    return new CollegeChecking(holder, 0, Campus.NEWARK);
+                }
+                else if (campusCA.isSelected()) {
+                    openConsole.clear();
+                    return new CollegeChecking(holder, 0, Campus.CAMDEN);
+                }
+            }
+            openConsole.setText("Account could not be created, campus not selected");
+            return null;
+        }
+    }
+
     private Account createSavings(Profile holder, double deposit) {
         if (savingsButton.isSelected()) {
             if (loyaltyButton.isSelected()) {
@@ -303,8 +339,26 @@ public class TransactionManagerController {
                 return null;
             }
         }
-
     }
+
+    private Account createSavings(Profile holder) {
+        if (savingsButton.isSelected()) {
+            if (loyaltyButton.isSelected()) {
+                openConsole.clear();
+                return new Savings(holder, 0, true);
+            }
+            else {
+                openConsole.clear();
+                openConsole.setText("Savings account created");
+                return new Savings(holder, 0, false);
+            }
+        }
+        else {
+            openConsole.clear();
+            return new MoneyMarket(holder,0);
+            }
+        }
+
 
     @FXML
     protected int getInitialDeposit() {
