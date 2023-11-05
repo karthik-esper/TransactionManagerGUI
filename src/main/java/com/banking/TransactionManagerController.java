@@ -183,10 +183,10 @@ public class TransactionManagerController {
             int newBalanceAmount = Integer.parseInt(changeAmount.getText());
             Account newAccount = createAccount(holder, newBalanceAmount);
             accountDatabase.deposit(newAccount);
-            openConsole.setText("Amount Deposited");
+            withdrawConsole.setText("Amount Deposited: " + newBalanceAmount);
         }
         else {
-            openConsole.setText("Account not found!");
+            withdrawConsole.setText("Account not found!");
         }
     }
     @FXML
@@ -196,12 +196,16 @@ public class TransactionManagerController {
         if (accountDatabase.contains(tempAccount)) {
             int newBalanceAmount = Integer.parseInt(changeAmount.getText());
             Account newAccount = createAccount(holder, newBalanceAmount);
-            accountDatabase.withdraw(newAccount);
-            openConsole.setText("Amount Withdrawn");
-            openConsole.setText(newAccount.toString());
+            if (accountDatabase.withdraw(newAccount)) {
+                withdrawConsole.setText("Amount Withdrawn: " + newBalanceAmount);
+            }
+            else {
+                withdrawConsole.setText("Insufficient funds to withdraw.");
+            }
+
         }
         else {
-            openConsole.setText("Account not found!");
+            withdrawConsole.setText("Account not found!");
         }
     }
     @FXML
