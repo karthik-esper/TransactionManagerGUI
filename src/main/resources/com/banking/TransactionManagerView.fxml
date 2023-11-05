@@ -108,7 +108,7 @@
                      </effect></Label>
                    <RadioButton fx:id="withdrawCheckingButton" layoutX="390.0" layoutY="30.0" mnemonicParsing="false" text="Checking">
                        <toggleGroup>
-                           <ToggleGroup fx:id="WithdrawAccountType" />
+                           <ToggleGroup fx:id="withdrawAccountType" />
                        </toggleGroup></RadioButton>
                    <RadioButton fx:id="withdrawCollegeCheckingButton" layoutX="390.0" layoutY="70.0" mnemonicParsing="false" text="College Checking" toggleGroup="$AccountType" />
                    <RadioButton fx:id="withdrawSavingsButton" layoutX="390.0" layoutY="110.0" mnemonicParsing="false" text="Savings" toggleGroup="$AccountType" />

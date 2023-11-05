@@ -62,7 +62,7 @@ public class TransactionManagerController {
     @FXML
     private ToggleGroup CampusType;
     @FXML
-    private ToggleGroup WithdrawAccountType;
+    private ToggleGroup withdrawAccountType;
 
     @FXML
     protected void printAccounts() {
@@ -177,9 +177,13 @@ public class TransactionManagerController {
 
     @FXML
     protected void depositClick() {
-        if (WithdrawAccountType.getSelectedToggle() != null) {
+        if (withdrawAccountType.getSelectedToggle() != null) {
+            if (getWithdrawFirstName().equals("") || getWithdrawLastName().equals("")) {
+                withdrawConsole.setText("Invalid name, either first name or last name is empty");
+                return;
+            }
             Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
-            Account tempAccount = createAccount(holder);
+            Account tempAccount = createAccount(holder, getAmount());
             if (accountDatabase.contains(tempAccount)) {
                 int newBalanceAmount = getAmount();
                 Account newAccount = createAccount(holder, newBalanceAmount);
@@ -198,9 +202,13 @@ public class TransactionManagerController {
     }
     @FXML
     protected void withdrawClick() {
-        if (WithdrawAccountType.getSelectedToggle() != null) {
+        if (withdrawAccountType.getSelectedToggle() != null) {
+            if (getWithdrawFirstName().equals("") || getWithdrawLastName().equals("")) {
+                withdrawConsole.setText("Invalid name, either first name or last name is empty");
+                return;
+            }
             Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
-            Account tempAccount = createAccount(holder);
+            Account tempAccount = createAccount(holder, getAmount());
             if (accountDatabase.contains(tempAccount)) {
                 int newBalanceAmount = getAmount();
                 Account newAccount = createAccount(holder, newBalanceAmount);
@@ -209,8 +217,8 @@ public class TransactionManagerController {
                 } else {
                     withdrawConsole.setText("Insufficient funds to withdraw.");
                 }
-
-            } else {
+            }
+            else {
                 withdrawConsole.setText("Account not found!");
                 return;
             }
@@ -227,7 +235,7 @@ public class TransactionManagerController {
         withdrawLastName.clear();
         withdrawDOB.getEditor().clear();
         changeAmount.clear();
-        WithdrawAccountType.selectToggle(null);
+        withdrawAccountType.selectToggle(null);
     }
     @FXML
     protected String getOpenFirstName() {
@@ -315,6 +323,14 @@ public class TransactionManagerController {
             Account newAccount = createChecking(holder, deposit);
             return newAccount;
         }
+        else if (withdrawCheckingButton.isSelected() || withdrawCollegeCheckingButton.isSelected()){
+            Account newAccount = createCheckingOperation(holder, deposit);
+            return newAccount;
+        }
+        else if (withdrawSavingsButton.isSelected() || withdrawMoneyMarket.isSelected()) {
+            Account newAccount = createSavingsOperation(holder, deposit);
+            return newAccount;
+        }
         else {
             Account newAccount = createSavings(holder, deposit);
             return newAccount;
@@ -397,6 +413,17 @@ public class TransactionManagerController {
         }
     }
 
+    private Account createCheckingOperation(Profile holder, double deposit){
+        if (withdrawCheckingButton.isSelected()) {
+            withdrawConsole.clear();
+            return new Checking(holder, deposit);
+        }
+        else {
+            withdrawConsole.clear();
+            return new CollegeChecking(holder, deposit, Campus.NEW_BRUNSWICK);
+        }
+    }
+
     private Account createSavings(Profile holder, double deposit) {
         if (savingsButton.isSelected()) {
             if (loyaltyButton.isSelected()) {
@@ -438,6 +465,17 @@ public class TransactionManagerController {
         else {
             openConsole.clear();
             return new MoneyMarket(holder,0);
+        }
+    }
+
+    private Account createSavingsOperation(Profile holder, double deposit) {
+        if (withdrawSavingsButton.isSelected()) {
+            withdrawConsole.clear();
+            return new Savings(holder, deposit, true);
+        }
+        else{
+            withdrawConsole.clear();
+            return new MoneyMarket(holder,deposit);
         }
     }
 
