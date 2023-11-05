@@ -110,27 +110,6 @@ public class TransactionManagerController {
     }
 
     @FXML
-    protected String getOpenFirstName() {
-        return openFirstName.getText();
-    }
-
-    @FXML
-    protected String getOpenLastName() {
-        return openLastName.getText();
-    }
-    @FXML
-    protected Date getOpenDate() {
-        if (openDOB.getValue() != null) {
-            String date = openDOB.getValue().toString();
-            String year = date.substring(0,4);
-            String month = date.substring(5,7);
-            String day = date.substring(8);
-            Date openDate = new Date(month + "/" + day + "/" + year);
-            return openDate;
-        }
-        return null;
-    }
-    @FXML
     protected void onOpenClick() {
         if (AccountType.getSelectedToggle() != null) {
             if (getOpenFirstName().equals("") || getOpenLastName().equals("")) {
@@ -197,6 +176,29 @@ public class TransactionManagerController {
 
     }
 
+
+    @FXML
+    protected String getOpenFirstName() {
+        return openFirstName.getText();
+    }
+
+    @FXML
+    protected String getOpenLastName() {
+        return openLastName.getText();
+    }
+    @FXML
+    protected Date getOpenDate() {
+        if (openDOB.getValue() != null) {
+            String date = openDOB.getValue().toString();
+            String year = date.substring(0,4);
+            String month = date.substring(5,7);
+            String day = date.substring(8);
+            Date openDate = new Date(month + "/" + day + "/" + year);
+            return openDate;
+        }
+        return null;
+    }
+
     private boolean validAge(String date) {
         Date Test = new Date(date);
         Date tooEarly = new Date ("11/6/2007");
@@ -224,6 +226,60 @@ public class TransactionManagerController {
         return true;
     }
 
+    @FXML
+    protected String getWithdrawFirstName() {
+        return withdrawFirstName.getText();
+    }
+
+    @FXML
+    protected String getWithdrawLastName() {
+        return withdrawLastName.getText();
+    }
+
+    @FXML
+    protected Date getWithdrawDOB() {
+        if (withdrawDOB.getValue() != null) {
+            String date = withdrawDOB.getValue().toString();
+            String year = date.substring(0,4);
+            String month = date.substring(5,7);
+            String day = date.substring(8);
+            Date withdrawDate = new Date(month + "/" + day + "/" + year);
+            return withdrawDate;
+        }
+        return null;
+    }
+
+    @FXML
+    protected int getInitialDeposit() {
+        if (!initialDeposit.getText().isEmpty()) {
+            try {
+                Double.parseDouble(initialDeposit.getText());
+            } catch (NumberFormatException e) {
+                return -1;
+            }
+            int initDeposit = Integer.parseInt(initialDeposit.getText());
+            return initDeposit;
+        }
+        else {
+            return -1;
+        }
+    }
+
+    @FXML
+    protected int getAmount() {
+        if (!changeAmount.getText().isEmpty()) {
+            try {
+                Double.parseDouble(changeAmount.getText());
+            } catch (NumberFormatException e) {
+                return -1;
+            }
+            int changeAmt = Integer.parseInt(changeAmount.getText());
+            return changeAmt;
+        }
+        else {
+            return -1;
+        }
+    }
     private Account createAccount(Profile holder, double deposit) {
         if (getInitialDeposit() < 0) {
             openConsole.setText("Balance entered is either empty or invalid, please try again.");
@@ -356,65 +412,10 @@ public class TransactionManagerController {
         else {
             openConsole.clear();
             return new MoneyMarket(holder,0);
-            }
-        }
-
-
-    @FXML
-    protected int getInitialDeposit() {
-        if (!initialDeposit.getText().isEmpty()) {
-            try {
-                Double.parseDouble(initialDeposit.getText());
-            } catch (NumberFormatException e) {
-                return -1;
-            }
-            int initDeposit = Integer.parseInt(initialDeposit.getText());
-            return initDeposit;
-        }
-        else {
-            return -1;
-        }
-
-
-    }
-    @FXML
-    protected String getWithdrawFirstName() {
-        return withdrawFirstName.getText();
-    }
-
-    @FXML
-    protected String getWithdrawLastName() {
-        return withdrawLastName.getText();
-    }
-
-    @FXML
-    protected Date getWithdrawDOB() {
-        if (withdrawDOB.getValue() != null) {
-            String date = withdrawDOB.getValue().toString();
-            String year = date.substring(0,4);
-            String month = date.substring(5,7);
-            String day = date.substring(8);
-            Date withdrawDate = new Date(month + "/" + day + "/" + year);
-            return withdrawDate;
-        }
-        return null;
-    }
-
-    @FXML
-    protected int getAmount() {
-        if (!changeAmount.getText().isEmpty()) {
-            try {
-                Double.parseDouble(changeAmount.getText());
-            } catch (NumberFormatException e) {
-                return -1;
-            }
-            int changeAmt = Integer.parseInt(changeAmount.getText());
-            return changeAmt;
-        }
-        else {
-            return -1;
         }
     }
+
+
 
 
 
