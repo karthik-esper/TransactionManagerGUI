@@ -111,6 +111,7 @@ public class TransactionManagerController {
 
     @FXML
     protected void onOpenClick() {
+        depositWithdrawClear();
         if (AccountType.getSelectedToggle() != null) {
             if (getOpenFirstName().equals("") || getOpenLastName().equals("")) {
                 openConsole.setText("Invalid name, either first name or last name is empty");
@@ -140,6 +141,7 @@ public class TransactionManagerController {
     }
     @FXML
     protected void onCloseClick() {
+        depositWithdrawClear();
         if (AccountType.getSelectedToggle() != null) {
             if (getOpenDate() == null) {
                 openConsole.setText("The date entered is not valid!");
@@ -177,17 +179,17 @@ public class TransactionManagerController {
 
     @FXML
     protected void depositClick() {
+        openClearClick();
         if (withdrawAccountType.getSelectedToggle() != null) {
             if (getWithdrawFirstName().equals("") || getWithdrawLastName().equals("")) {
                 withdrawConsole.setText("Invalid name, either first name or last name is empty");
                 return;
             }
             Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
-            Account tempAccount = createAccount(holder, getAmount());
+            double newBalanceAmount = getAmount();
+            Account tempAccount = createAccount(holder, newBalanceAmount);
             if (accountDatabase.contains(tempAccount)) {
-                int newBalanceAmount = getAmount();
-                Account newAccount = createAccount(holder, newBalanceAmount);
-                accountDatabase.deposit(newAccount);
+                accountDatabase.deposit(tempAccount);
                 withdrawConsole.setText("Amount Deposited: " + newBalanceAmount);
             } else {
                 withdrawConsole.setText("Account not found!");
@@ -202,17 +204,17 @@ public class TransactionManagerController {
     }
     @FXML
     protected void withdrawClick() {
+        openClearClick();
         if (withdrawAccountType.getSelectedToggle() != null) {
             if (getWithdrawFirstName().equals("") || getWithdrawLastName().equals("")) {
                 withdrawConsole.setText("Invalid name, either first name or last name is empty");
                 return;
             }
             Profile holder = new Profile(getWithdrawFirstName(), getWithdrawLastName(), getWithdrawDOB());
-            Account tempAccount = createAccount(holder, getAmount());
+            double newBalanceAmount = getAmount();
+            Account tempAccount = createAccount(holder, newBalanceAmount);
             if (accountDatabase.contains(tempAccount)) {
-                int newBalanceAmount = getAmount();
-                Account newAccount = createAccount(holder, newBalanceAmount);
-                if (accountDatabase.withdraw(newAccount)) {
+                if (accountDatabase.withdraw(tempAccount)) {
                     withdrawConsole.setText("Amount Withdrawn: " + newBalanceAmount);
                 } else {
                     withdrawConsole.setText("Insufficient funds to withdraw.");
@@ -317,6 +319,7 @@ public class TransactionManagerController {
     private Account createAccount(Profile holder, double deposit) {
         if (getInitialDeposit() < 0 && getAmount() < 0) {
             openConsole.setText("Balance entered is either empty or invalid, please try again.");
+            withdrawConsole.setText("Balance entered is either empty or invalid, please try again.");
             return null;
         }
         if (checkingButton.isSelected() || collegeCheckingButton.isSelected()) {

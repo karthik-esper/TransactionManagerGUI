@@ -110,9 +110,9 @@
                        <toggleGroup>
                            <ToggleGroup fx:id="withdrawAccountType" />
                        </toggleGroup></RadioButton>
-                   <RadioButton fx:id="withdrawCollegeCheckingButton" layoutX="390.0" layoutY="70.0" mnemonicParsing="false" text="College Checking" toggleGroup="$AccountType" />
-                   <RadioButton fx:id="withdrawSavingsButton" layoutX="390.0" layoutY="110.0" mnemonicParsing="false" text="Savings" toggleGroup="$AccountType" />
-                   <RadioButton fx:id="withdrawMoneyMarket" layoutX="390.0" layoutY="150.0" mnemonicParsing="false" text="Money Market" toggleGroup="$AccountType" />
+                   <RadioButton fx:id="withdrawCollegeCheckingButton" layoutX="390.0" layoutY="70.0" mnemonicParsing="false" text="College Checking" toggleGroup="$withdrawAccountType" />
+                   <RadioButton fx:id="withdrawSavingsButton" layoutX="390.0" layoutY="110.0" mnemonicParsing="false" text="Savings" toggleGroup="$withdrawAccountType" />
+                   <RadioButton fx:id="withdrawMoneyMarket" layoutX="390.0" layoutY="150.0" mnemonicParsing="false" text="Money Market" toggleGroup="$withdrawAccountType" />
                   <TextField fx:id="withdrawFirstName" layoutX="146.0" layoutY="28.0" promptText="Enter first name..." />
                   <TextField fx:id="withdrawLastName" layoutX="146.0" layoutY="64.0" promptText="Enter last name..." />
                   <DatePicker fx:id="withdrawDOB" layoutX="145.0" layoutY="102.0" onMouseExited="#getWithdrawDOB" />
