@@ -306,9 +306,6 @@ public class TransactionManagerController {
 
     }
 
-
-
-
     @FXML
     protected int getInitialDeposit() {
         if (!initialDeposit.getText().isEmpty()) {
