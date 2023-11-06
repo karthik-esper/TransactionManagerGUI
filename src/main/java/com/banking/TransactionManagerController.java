@@ -51,10 +51,6 @@ public class TransactionManagerController {
     @FXML
     private TextArea accountDatabaseOutput;
     @FXML
-    private TextField firstName;
-    @FXML
-    private TextField lastName;
-    @FXML
     private TextField initialDeposit;
     @FXML
     private TextField changeAmount;
@@ -179,6 +175,7 @@ public class TransactionManagerController {
         initialDeposit.clear();
         AccountType.selectToggle(null);
         CampusType.selectToggle(null);
+        loyaltyButton.setSelected(false);
     }
 
     @FXML
