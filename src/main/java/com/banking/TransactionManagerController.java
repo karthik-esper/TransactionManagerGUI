@@ -2,8 +2,11 @@ package com.banking;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 import java.io.File;
 
 /**
@@ -72,6 +75,8 @@ public class TransactionManagerController {
     private ToggleGroup CampusType;
     @FXML
     private ToggleGroup withdrawAccountType;
+    @FXML
+    private Button loadFile;
 
     /**
      * Prints accounts in sorted order to the console.
@@ -102,14 +107,15 @@ public class TransactionManagerController {
 
     @FXML
     protected void loadFiles() {
+        accountDatabaseOutput.clear();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open bankAccounts.txt");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
         // Add extension filters (optional)
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                new FileChooser.ExtensionFilter("All Files", "*.*")
+                new FileChooser.ExtensionFilter("Text Files", ".txt"),
+                new FileChooser.ExtensionFilter("All Files", ".")
         );
         // Show open file dialog and get the selected file
         // You need to provide a window for the dialog. If you have a reference to the current stage, use it here.
