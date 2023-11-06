@@ -125,14 +125,12 @@ public class TransactionManagerController {
         File file = fileChooser.showOpenDialog(null);
 
         if (file != null) {
-            System.out.println(file.getAbsolutePath());
             try (Scanner inputReader = new Scanner(file)) {
                 while (inputReader.hasNextLine()) {
                     fileReader(inputReader, file);
-                    System.out.println(file.getAbsolutePath() + "hasjdfksdaf");
                 }
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                accountDatabaseOutput.setText("File not properly set.");
             }
         }
     }
