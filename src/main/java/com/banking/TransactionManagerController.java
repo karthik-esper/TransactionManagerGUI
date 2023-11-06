@@ -272,7 +272,7 @@ public class TransactionManagerController {
     protected void openClearClick() {
         openFirstName.clear();
         openLastName.clear();
-        openDOB.getEditor().clear();
+        openDOB.setValue(null);
         initialDeposit.clear();
         AccountType.selectToggle(null);
         CampusType.selectToggle(null);
@@ -287,6 +287,10 @@ public class TransactionManagerController {
     @FXML
     protected void depositClick() {
         openClearClick();
+        if (getWithdrawDOB() == null) {
+            withdrawConsole.setText("The date entered is not valid!");
+            return;
+        }
         if (withdrawAccountType.getSelectedToggle() != null) {
             if (getWithdrawFirstName().equals("") || getWithdrawLastName().equals("")) {
                 withdrawConsole.setText("Invalid name, either first name or last name is empty");
@@ -319,6 +323,10 @@ public class TransactionManagerController {
     @FXML
     protected void withdrawClick() {
         openClearClick();
+        if (getWithdrawDOB() == null) {
+            withdrawConsole.setText("The date entered is not valid!");
+            return;
+        }
         if (withdrawAccountType.getSelectedToggle() != null) {
             if (getWithdrawFirstName().equals("") || getWithdrawLastName().equals("")) {
                 withdrawConsole.setText("Invalid name, either first name or last name is empty");
@@ -357,7 +365,7 @@ public class TransactionManagerController {
     protected void depositWithdrawClear() {
         withdrawFirstName.clear();
         withdrawLastName.clear();
-        withdrawDOB.getEditor().clear();
+        withdrawDOB.setValue(null);
         changeAmount.clear();
         withdrawAccountType.selectToggle(null);
     }
