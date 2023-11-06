@@ -177,6 +177,7 @@ public class TransactionManagerController {
         initialDeposit.clear();
         AccountType.selectToggle(null);
         CampusType.selectToggle(null);
+        loyaltyButton.setSelected(false);
     }
 
     @FXML
