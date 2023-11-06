@@ -179,6 +179,7 @@ public class AccountDatabase {
 
     /**
      * Print the sorted array by account type and profile.
+     * @return the String version of the sorted array.
      */
     public String printSorted(){
         if (numAcct > 0) {
@@ -220,6 +221,7 @@ public class AccountDatabase {
 
     /**
      * Calculates and displays the monthly fee and interest of the account at given time.
+     * @return the String version of the array with fees and interest.
      */
     public String printFeesAndInterests() {
         if (numAcct > 0) {
@@ -243,6 +245,7 @@ public class AccountDatabase {
 
     /**
      * Prints updated balances by calculating interest and fees.
+     * @return the String version of the balances printed.
      */
     public String printUpdatedBalances(){
         if (numAcct > 0) {
