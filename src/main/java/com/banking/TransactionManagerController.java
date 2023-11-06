@@ -50,10 +50,6 @@ public class TransactionManagerController {
     @FXML
     private TextArea accountDatabaseOutput;
     @FXML
-    private TextField firstName;
-    @FXML
-    private TextField lastName;
-    @FXML
     private TextField initialDeposit;
     @FXML
     private TextField changeAmount;
