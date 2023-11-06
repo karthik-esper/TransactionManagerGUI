@@ -136,7 +136,7 @@
                   <Button layoutX="10.0" layoutY="480.0" mnemonicParsing="false" onAction="#printAccounts" prefHeight="50.0" prefWidth="125.0" text="Print Accounts sorted by name and date" wrapText="true" />
                   <Button layoutX="160.0" layoutY="480.0" mnemonicParsing="false" onAction="#printFeesAndInterest" prefHeight="50.0" prefWidth="125.0" text="Print Accounts with Interest and Fees" wrapText="true" />
                   <Button layoutX="310.0" layoutY="480.0" mnemonicParsing="false" onAction="#applyFeesAndInterest" prefHeight="50.0" prefWidth="125.0" text="Apply and Print Interest and Fees" wrapText="true" />
-                   <Button layoutX="460.0" layoutY="480.0" mnemonicParsing="false" onAction="#clearOutput" prefHeight="50.0" prefWidth="125.0" text="Clear Output Box" wrapText="true" />
+                   <Button layoutX="460.0" layoutY="480.0" mnemonicParsing="false" onAction="#loadFiles" prefHeight="50.0" prefWidth="125.0" text="Load Files from Text File" wrapText="true" />
                </children></AnchorPane>
           </content>
       </Tab>

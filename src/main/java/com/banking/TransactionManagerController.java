@@ -3,6 +3,7 @@ package com.banking;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 
 public class TransactionManagerController {
     private AccountDatabase accountDatabase = new AccountDatabase();
@@ -83,8 +84,9 @@ public class TransactionManagerController {
     }
 
     @FXML
-    protected void clearOutput() {
+    protected void loadFiles() {
         accountDatabaseOutput.clear();
+
     }
 
     @FXML
