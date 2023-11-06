@@ -8,6 +8,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  * Controller class for the JavaFX project.
@@ -105,6 +107,9 @@ public class TransactionManagerController {
         accountDatabaseOutput.setText(accountDatabase.printUpdatedBalances());
     }
 
+    /**
+     * loads text files with the help of fileReader().
+     */
     @FXML
     protected void loadFiles() {
         accountDatabaseOutput.clear();
@@ -112,17 +117,60 @@ public class TransactionManagerController {
         fileChooser.setTitle("Open bankAccounts.txt");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 
-        // Add extension filters (optional)
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text Files", "*.txt"),
                 new FileChooser.ExtensionFilter("All Files", "*.")
         );
-        // Show open file dialog and get the selected file
-        // You need to provide a window for the dialog. If you have a reference to the current stage, use it here.
+
         File file = fileChooser.showOpenDialog(null);
+
         if (file != null) {
-            // Do something with the selected file
-            System.out.println("File selected: " + file.getAbsolutePath());
+            System.out.println(file.getAbsolutePath());
+            try (Scanner inputReader = new Scanner(file)) {
+                while (inputReader.hasNextLine()) {
+                    fileReader(inputReader, file);
+                    System.out.println(file.getAbsolutePath() + "hasjdfksdaf");
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Helper method to loadFiles() which reads the file and based on the keywords in the line.
+     * @param scanner Scanner that reads the text files lines.
+     * @param file File that is the text file.
+     */
+    protected void fileReader(Scanner scanner, File file) {
+        String result = scanner.nextLine();
+        if (result.equals("")) {
+            result = scanner.nextLine();
+        }
+        String[] tokens = result.split(",");
+        if (tokens[0].equals("C")) {
+            Profile person = new Profile(tokens[1], tokens[2], new Date(tokens[3]));
+            accountDatabase.open(new Checking(person, Double.parseDouble(tokens[4])));
+        }
+        if (tokens[0].equals("CC")) {
+            Profile person = new Profile(tokens[1], tokens[2], new Date(tokens[3]));
+            if (tokens[5].equals("0")) {
+                accountDatabase.open(new CollegeChecking(person, Double.parseDouble(tokens[4]),Campus.NEW_BRUNSWICK));
+            }
+            if (tokens[5].equals("1")) {
+                accountDatabase.open(new CollegeChecking(person, Double.parseDouble(tokens[4]),Campus.NEWARK));
+            }
+            if (tokens[5].equals("2")) {
+                accountDatabase.open(new CollegeChecking(person, Double.parseDouble(tokens[4]),Campus.CAMDEN));
+            }
+        }
+        if (tokens[0].equals("S")) {
+            Profile person = new Profile(tokens[1], tokens[2], new Date(tokens[3]));
+            accountDatabase.open(new Savings(person, Double.parseDouble(tokens[4]), Integer.parseInt(tokens[5]) == 1));
+        }
+        if (tokens[0].equals("MM")) {
+            Profile person = new Profile(tokens[1], tokens[2], new Date(tokens[3]));
+            accountDatabase.open(new MoneyMarket(person, Double.parseDouble(tokens[4])));
         }
     }
 
