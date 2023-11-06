@@ -4,9 +4,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+/**
+ * Controller class for the JavaFX project.
+ * Handles cases of invalid and valid user input.
+ * Allows the user to run every command that was part of Transaction Manager.
+ * @author Karthik Gangireddy, Vineal Sunkara
+ */
 public class TransactionManagerController {
-    private AccountDatabase accountDatabase = new AccountDatabase();
+    private AccountDatabase accountDatabase = new AccountDatabase(); // default database
 
+    // Buttons to factor in selected inputs
     @FXML
     private RadioButton checkingButton;
     @FXML
@@ -31,6 +38,7 @@ public class TransactionManagerController {
     private RadioButton campusCA;
     @FXML
     private RadioButton loyaltyButton;
+    // Textfields and pickers for profile information
     @FXML
     private TextField openFirstName;
     @FXML
@@ -43,16 +51,19 @@ public class TransactionManagerController {
     private DatePicker openDOB;
     @FXML
     private DatePicker withdrawDOB;
+    // Consoles for output
     @FXML
     private TextArea openConsole;
     @FXML
     private TextArea withdrawConsole;
     @FXML
     private TextArea accountDatabaseOutput;
+    // Fields for money amounts
     @FXML
     private TextField initialDeposit;
     @FXML
     private TextField changeAmount;
+    // Groups for the account stuff
     @FXML
     private ToggleGroup AccountType;
     @FXML
@@ -60,18 +71,27 @@ public class TransactionManagerController {
     @FXML
     private ToggleGroup withdrawAccountType;
 
+    /**
+     * Prints accounts in sorted order to the console.
+     */
     @FXML
     protected void printAccounts() {
         accountDatabaseOutput.clear();
         accountDatabaseOutput.setText(accountDatabase.printSorted());
     }
 
+    /**
+     * Prints accounts along with their fees and interest to the console.
+     */
     @FXML
     protected void printFeesAndInterest() {
         accountDatabaseOutput.clear();
         accountDatabaseOutput.setText(accountDatabase.printFeesAndInterests());
     }
 
+    /**
+     * Applies the fees and interests and calculates new ones, which it then prints to the console.
+     */
     @FXML
     protected void applyFeesAndInterest() {
         accountDatabaseOutput.clear();
@@ -83,6 +103,9 @@ public class TransactionManagerController {
         accountDatabaseOutput.clear();
     }
 
+    /**
+     * Handles only allowing you to select a campus if you are making a College Checkings account.
+     */
     @FXML
     protected void campusSelector() {
         if(collegeCheckingButton.isSelected()) {
@@ -100,6 +123,11 @@ public class TransactionManagerController {
         }
     }
 
+    /**
+     * Handles all the operations needed to open an account.
+     * Factors in possible errors such as invalid dates, empty fields, and improper entries.
+     * Opens the account after checking that it is not a duplicate.
+     */
     @FXML
     protected void onOpenClick() {
         depositWithdrawClear();
@@ -125,11 +153,8 @@ public class TransactionManagerController {
                         openConsole.setText("Account is already in database.");
                         return;
                     }
-
             }
-            else {
-                return;
-            }
+            else {return;}
         }
         else {
             openConsole.setText("Button not selected for account type, please do so.");
@@ -137,6 +162,12 @@ public class TransactionManagerController {
         }
         openClearClick();
     }
+
+    /**
+     * Handles all the operations needed to close an account.
+     * Factors in possible errors such as invalid dates, empty fields, and improper entries.
+     * Closes account after checking that it is in the database.
+     */
     @FXML
     protected void onCloseClick() {
         depositWithdrawClear();
@@ -165,6 +196,9 @@ public class TransactionManagerController {
         openClearClick();
     }
 
+    /**
+     * Clears all fields in the open/close window.
+     */
     @FXML
     protected void openClearClick() {
         openFirstName.clear();
@@ -176,6 +210,11 @@ public class TransactionManagerController {
         loyaltyButton.setSelected(false);
     }
 
+    /**
+     * Handles all operations necessary to deposit into an account.
+     * Creates a temporary account checking that all parameters are valid, in order to deposit.
+     * Ensures that invalid balances or non-existent accounts will not be part of the operations.
+     */
     @FXML
     protected void depositClick() {
         openClearClick();
@@ -203,6 +242,11 @@ public class TransactionManagerController {
         }
         depositWithdrawClear();
     }
+    /**
+     * Handles all operations necessary to withdraw an account.
+     * Creates a temporary account checking that all parameters are valid, in order to withdraw.
+     * Ensures that invalid balances or insufficient balances will not allow the operation to go through.
+     */
     @FXML
     protected void withdrawClick() {
         openClearClick();
@@ -236,6 +280,10 @@ public class TransactionManagerController {
         }
         depositWithdrawClear();
     }
+
+    /**
+     * Clears all fields in the deposit/withdraw tab.
+     */
     @FXML
     protected void depositWithdrawClear() {
         withdrawFirstName.clear();
@@ -244,18 +292,32 @@ public class TransactionManagerController {
         changeAmount.clear();
         withdrawAccountType.selectToggle(null);
     }
+
+    /**
+     * Gets the first name to open/close an account
+     * @return the text in the first name box for the open/close tab
+     */
     @FXML
     protected String getOpenFirstName() {
         return openFirstName.getText();
     }
 
+    /**
+     * Gets the last name to open/close an account
+     * @return the text in the last name box for the open/close tab
+     */
     @FXML
     protected String getOpenLastName() {
         return openLastName.getText();
     }
+
+    /**
+     * Gets the date from the date picker in open/close.
+     * @return the Date in the date picker in the open/close tab.
+     */
     @FXML
     protected Date getOpenDate() {
-        if (openDOB.getValue() != null || withdrawDOB.getValue() != null) {
+        if (openDOB.getValue() != null) {
             String date = openDOB.getValue().toString();
             String year = date.substring(0,4);
             String month = date.substring(5,7);
@@ -266,16 +328,27 @@ public class TransactionManagerController {
         return null;
     }
 
+    /**
+     * Gets the first name to withdraw/deposit from the first name textfield.
+     * @return the first name to deposit/withdraw.
+     */
     @FXML
     protected String getWithdrawFirstName() {
         return withdrawFirstName.getText();
     }
-
+    /**
+     * Gets the last name to withdraw/deposit from the last name textfield.
+     * @return the last name to deposit/withdraw.
+     */
     @FXML
     protected String getWithdrawLastName() {
         return withdrawLastName.getText();
     }
 
+    /**
+     * Gets the date from the date picker in deposit/withdraw.
+     * @return the Date in the date picker in the deposit/withdraw tab.
+     */
     @FXML
     protected Date getWithdrawDOB() {
         if (withdrawDOB.getValue() != null) {
@@ -289,6 +362,10 @@ public class TransactionManagerController {
         return null;
     }
 
+    /**
+     * Gets the number for the initial deposit box while also checking for invalid input.
+     * @return the number from the deposit box.
+     */
     @FXML
     protected double getInitialDeposit() {
         if (!initialDeposit.getText().isEmpty()) {
@@ -304,7 +381,10 @@ public class TransactionManagerController {
             return -1;
         }
     }
-
+    /**
+     * Gets the number from the change amount box while also checking for invalid input.
+     * @return the number to deposit/withdraw into account.
+     */
     @FXML
     protected double getAmount() {
         if (!changeAmount.getText().isEmpty()) {
@@ -321,6 +401,12 @@ public class TransactionManagerController {
         }
     }
 
+    /**
+     * Creates an account given a holder and deposit.
+     * @param holder the profile of the holder of the account.
+     * @param deposit the amount of either the initial deposit or the operation to be done.
+     * @return an account if able to be created, null otherwise.
+     */
     private Account createAccount(Profile holder, double deposit) {
         if (getInitialDeposit() < 0 && getAmount() < 0) {
             openConsole.setText("Balance entered is either empty or invalid, please try again.");
@@ -344,7 +430,11 @@ public class TransactionManagerController {
             return newAccount;
         }
     }
-
+    /**
+     * Creates an account given only the holder, mainly for closing operations.
+     * @param holder the profile of the holder of the account.
+     * @return an account if able to be created, null otherwise.
+     */
     private Account createAccount(Profile holder) {
         if (checkingButton.isSelected() || collegeCheckingButton.isSelected()) {
             Account newAccount = createChecking(holder);
@@ -356,6 +446,12 @@ public class TransactionManagerController {
         }
     }
 
+    /**
+     * Creates a checking/college checking account based on more specific fields to select.
+     * @param holder profile of the holder of the account.
+     * @param deposit the amount to deposit into the account.
+     * @return an account if able to be made, null otherwise.
+     */
     private Account createChecking(Profile holder, double deposit){
         if (checkingButton.isSelected()) {
             openConsole.clear();
@@ -389,9 +485,9 @@ public class TransactionManagerController {
     }
 
     /**
-     * This one creates account for closing
-     * @param holder
-     * @return
+     * This one creates checking/college checking account for closing, doesn't need deposit.
+     * @param holder profile of the account holder.
+     * @return account if it can be created, null otherwise.
      */
     private Account createChecking(Profile holder){
         if (checkingButton.isSelected()) {
@@ -421,6 +517,12 @@ public class TransactionManagerController {
         }
     }
 
+    /**
+     * Creates a checking/college checking account with the intention of using for withdraw or deposit.
+     * @param holder profile of the holder of the account.
+     * @param deposit amount for the operation.
+     * @return account if can be created, false otherwise.
+     */
     private Account createCheckingOperation(Profile holder, double deposit){
         if (withdrawCheckingButton.isSelected()) {
             withdrawConsole.clear();
@@ -431,7 +533,13 @@ public class TransactionManagerController {
             return new CollegeChecking(holder, deposit, Campus.NEW_BRUNSWICK);
         }
     }
-
+    /**
+     * Creates a savings/money market account based on more specific fields to select.
+     * Checks loyalty, and for money market checks to see if balance is sufficient.
+     * @param holder profile of the holder of the account.
+     * @param deposit the amount to deposit into the account.
+     * @return an account if able to be made, null otherwise.
+     */
     private Account createSavings(Profile holder, double deposit) {
         if (savingsButton.isSelected()) {
             if (loyaltyButton.isSelected()) {
@@ -458,6 +566,11 @@ public class TransactionManagerController {
         }
     }
 
+    /**
+     * Creates a savings/money market specifically for closing, does not worry about balance.
+     * @param holder profile of the holder of the account.
+     * @return an account if able to be made, null otherwise.
+     */
     private Account createSavings(Profile holder) {
         if (savingsButton.isSelected()) {
             if (loyaltyButton.isSelected()) {
@@ -476,6 +589,12 @@ public class TransactionManagerController {
         }
     }
 
+    /**
+     * Creates a savings/money market account for the sake of withdraw/deposit.
+     * @param holder profile of the holder of the account.
+     * @param deposit the amount for the operation.
+     * @return an account if able to be made, null otherwise.
+     */
     private Account createSavingsOperation(Profile holder, double deposit) {
         if (withdrawSavingsButton.isSelected()) {
             withdrawConsole.clear();
@@ -487,6 +606,11 @@ public class TransactionManagerController {
         }
     }
 
+    /**
+     * Checks if the holder is too young to open an account.
+     * @param date the date of birth of the user as a String.
+     * @return true if valid age, false is too young.
+     */
     private boolean validAge(String date) {
         Date Test = new Date(date);
         Date tooEarly = new Date ("11/6/2007");
@@ -499,6 +623,12 @@ public class TransactionManagerController {
         return true;
     }
 
+    /**
+     * Checks in the case of a college checkings account if the holder is too old.
+     * @param date the date of birth of the user.
+     * @param overload a string that signifies this overloaded method instead.
+     * @return true is user is valid age, false if too young/old.
+     */
     private boolean validAge(String date, String overload) {
         Date Test = new Date(date);
         Date tooEarly = new Date ("11/6/2007");
